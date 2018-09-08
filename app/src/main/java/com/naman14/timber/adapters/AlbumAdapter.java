@@ -41,7 +41,6 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
 import java.util.List;
 
 public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ItemHolder> {
-
     private List<Album> arraylist;
     private Activity mContext;
     private boolean isGrid;
@@ -50,19 +49,16 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ItemHolder> 
         this.arraylist = arraylist;
         this.mContext = context;
         this.isGrid = PreferencesUtility.getInstance(mContext).isAlbumsInGrid();
-
     }
 
     @Override
     public ItemHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         if (isGrid) {
             View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_album_grid, null);
-            ItemHolder ml = new ItemHolder(v);
-            return ml;
+            return new ItemHolder(v);
         } else {
             View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_album_list, null);
-            ItemHolder ml = new ItemHolder(v);
-            return ml;
+            return new ItemHolder(v);
         }
     }
 
@@ -123,9 +119,9 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ItemHolder> 
                     }
                 });
 
-        if (TimberUtils.isLollipop())
+        if (TimberUtils.isLollipop()) {
             itemHolder.albumArt.setTransitionName("transition_album_art" + i);
-
+        }
     }
 
     @Override
@@ -144,9 +140,9 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ItemHolder> 
 
         public ItemHolder(View view) {
             super(view);
-            this.title = (TextView) view.findViewById(R.id.album_title);
-            this.artist = (TextView) view.findViewById(R.id.album_artist);
-            this.albumArt = (ImageView) view.findViewById(R.id.album_art);
+            this.title = view.findViewById(R.id.album_title);
+            this.artist =  view.findViewById(R.id.album_artist);
+            this.albumArt = view.findViewById(R.id.album_art);
             this.footer = view.findViewById(R.id.footer);
             view.setOnClickListener(this);
         }
@@ -156,11 +152,5 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ItemHolder> 
             NavigationUtils.navigateToAlbum(mContext, arraylist.get(getAdapterPosition()).id,
                     new Pair<View, String>(albumArt, "transition_album_art" + getAdapterPosition()));
         }
-
     }
-
-
 }
-
-
-

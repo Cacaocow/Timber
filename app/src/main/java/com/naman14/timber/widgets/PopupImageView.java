@@ -13,7 +13,6 @@ import com.afollestad.appthemeengine.util.TintHelper;
  * Created by naman on 29/10/16.
  */
 public class PopupImageView extends ImageView {
-
     public PopupImageView(Context context) {
         super(context);
         tint();
@@ -40,5 +39,4 @@ public class PopupImageView extends ImageView {
             TintHelper.setTint(this, Color.parseColor("#eeeeee"));
         } else  TintHelper.setTint(this, Color.parseColor("#434343"));
     }
-
 }

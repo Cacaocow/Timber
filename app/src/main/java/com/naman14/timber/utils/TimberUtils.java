@@ -29,7 +29,6 @@ import android.os.Build;
 import android.provider.BaseColumns;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.TypedValue;
 import android.widget.Toast;
@@ -50,7 +49,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class TimberUtils {
-
     public static final String MUSIC_ONLY_SELECTION = MediaStore.Audio.AudioColumns.IS_MUSIC + "=1"
             + " AND " + MediaStore.Audio.AudioColumns.TITLE + " != ''";
 
@@ -65,7 +63,6 @@ public class TimberUtils {
     public static boolean isLollipop() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
     }
-
 
     public static boolean isJellyBeanMR2() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2;
@@ -124,7 +121,7 @@ public class TimberUtils {
         return mActionBarHeight;
     }
 
-    public static final int getSongCountForPlaylist(final Context context, final long playlistId) {
+    public static int getSongCountForPlaylist(final Context context, final long playlistId) {
         Cursor c = context.getContentResolver().query(
                 MediaStore.Audio.Playlists.Members.getContentUri("external", playlistId),
                 new String[]{BaseColumns._ID}, MUSIC_ONLY_SELECTION, null, null);
@@ -231,7 +228,6 @@ public class TimberUtils {
     }
 
     public static void showDeleteDialog(final Context context, final String name, final long[] list, final BaseSongAdapter adapter, final int pos) {
-
         new MaterialDialog.Builder(context)
                 .title("Delete song?")
                 .content("Are you sure you want to delete " + name + " ?")
@@ -256,7 +252,6 @@ public class TimberUtils {
     }
 
     public static void showDeleteDialog(final Context context, final String name, final long[] list, final BaseQueueAdapter qAdapter, final int pos) {
-
         new MaterialDialog.Builder(context)
                 .title("Delete song?")
                 .content("Are you sure you want to delete " + name + " ?")
@@ -279,7 +274,6 @@ public class TimberUtils {
                 })
                 .show();
     }
-
 
     public static void deleteTracks(final Context context, final long[] list) {
         final String[] projection = new String[]{
@@ -343,7 +337,6 @@ public class TimberUtils {
     }
 
     public static void shareTrack(final Context context, long id) {
-
         try {
             Intent share = new Intent(Intent.ACTION_SEND);
             share.setType("audio/*");
@@ -370,7 +363,6 @@ public class TimberUtils {
             return null;
         }
         c.moveToFirst();
-
 
         try {
 
@@ -407,8 +399,7 @@ public class TimberUtils {
                     }
                 }
             }
-        } catch (Exception ex) { }
+        } catch (Exception ignore) { }
         return "";
     }
-
 }

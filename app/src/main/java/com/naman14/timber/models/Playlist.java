@@ -15,7 +15,6 @@
 package com.naman14.timber.models;
 
 public class Playlist {
-
     public final long id;
     public final String name;
     public final int songCount;

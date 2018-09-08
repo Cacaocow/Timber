@@ -26,7 +26,6 @@ import retrofit.mime.TypedOutput;
 /**
  * Created by Christoph Walcher on 03.12.16.
  */
-
 public class LyricsLoader {
     private static LyricsLoader instance = null;
     private static final String BASE_API_URL = "https://makeitpersonal.co";
@@ -101,5 +100,4 @@ public class LyricsLoader {
         @GET("/lyrics")
         void getLyrics(@Query("artist") String artist, @Query("title") String title, Callback<String> callback);
     }
-
 }

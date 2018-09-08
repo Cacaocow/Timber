@@ -30,12 +30,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlaylistSongLoader {
-
     private static Cursor mCursor;
 
     private static long mPlaylistID;
     private static Context context;
-
 
     public static List<Song> getSongsInPlaylist(Context mContext, long playlistID) {
         ArrayList<Song> mSongList = new ArrayList<>();
@@ -73,40 +71,28 @@ public class PlaylistSongLoader {
 
                 mCursor.close();
                 mCursor = makePlaylistSongCursor(context, mPlaylistID);
-                if (mCursor != null) {
-                }
             }
         }
 
         if (mCursor != null && mCursor.moveToFirst()) {
             do {
-
                 final long id = mCursor.getLong(mCursor
                         .getColumnIndexOrThrow(MediaStore.Audio.Playlists.Members.AUDIO_ID));
-
                 final String songName = mCursor.getString(mCursor
                         .getColumnIndexOrThrow(AudioColumns.TITLE));
-
                 final String artist = mCursor.getString(mCursor
                         .getColumnIndexOrThrow(AudioColumns.ARTIST));
-
                 final long albumId = mCursor.getLong(mCursor
                         .getColumnIndexOrThrow(AudioColumns.ALBUM_ID));
-
                 final long artistId = mCursor.getLong(mCursor
                         .getColumnIndexOrThrow(AudioColumns.ARTIST_ID));
-
                 final String album = mCursor.getString(mCursor
                         .getColumnIndexOrThrow(AudioColumns.ALBUM));
-
                 final long duration = mCursor.getLong(mCursor
                         .getColumnIndexOrThrow(AudioColumns.DURATION));
-
                 final int durationInSecs = (int) duration / 1000;
-
                 final int tracknumber = mCursor.getInt(mCursor
                         .getColumnIndexOrThrow(AudioColumns.TRACK));
-
                 final Song song = new Song(id, albumId, artistId, songName, artist, album, durationInSecs, tracknumber);
 
                 mSongList.add(song);
@@ -147,11 +133,10 @@ public class PlaylistSongLoader {
 
         try {
             context.getContentResolver().applyBatch(MediaStore.AUTHORITY, ops);
-        } catch (RemoteException e) {
-        } catch (OperationApplicationException e) {
+        } catch (RemoteException ignore) {
+        } catch (OperationApplicationException ignore) {
         }
     }
-
 
     private static int countPlaylist(final Context context, final long playlistId) {
         Cursor c = null;
@@ -169,18 +154,14 @@ public class PlaylistSongLoader {
         } finally {
             if (c != null) {
                 c.close();
-                c = null;
             }
         }
 
         return 0;
     }
 
-
-    public static final Cursor makePlaylistSongCursor(final Context context, final Long playlistID) {
-        final StringBuilder mSelection = new StringBuilder();
-        mSelection.append(AudioColumns.IS_MUSIC + "=1");
-        mSelection.append(" AND " + AudioColumns.TITLE + " != ''");
+    public static Cursor makePlaylistSongCursor(final Context context, final Long playlistID) {
+        final String mSelection = String.format("%s=1 AND %s != ''" ,AudioColumns.IS_MUSIC, AudioColumns.TITLE);
         return context.getContentResolver().query(
                 MediaStore.Audio.Playlists.Members.getContentUri("external", playlistID),
                 new String[]{
@@ -194,7 +175,7 @@ public class PlaylistSongLoader {
                         AudioColumns.DURATION,
                         AudioColumns.TRACK,
                         Playlists.Members.PLAY_ORDER,
-                }, mSelection.toString(), null,
+                }, mSelection, null,
                 MediaStore.Audio.Playlists.Members.DEFAULT_SORT_ORDER);
     }
 }

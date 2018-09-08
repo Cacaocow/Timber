@@ -60,7 +60,6 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
 import java.util.List;
 
 public class ArtistDetailFragment extends Fragment {
-
     private long artistID = -1;
     private ImageView artistArt;
     private Toolbar toolbar;
@@ -89,33 +88,30 @@ public class ArtistDetailFragment extends Fragment {
         }
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(
                 R.layout.fragment_artist_detail, container, false);
 
-        artistArt = (ImageView) rootView.findViewById(R.id.artist_art);
+        artistArt = rootView.findViewById(R.id.artist_art);
 
-        collapsingToolbarLayout = (CollapsingToolbarLayout) rootView.findViewById(R.id.collapsing_toolbar);
-        appBarLayout = (AppBarLayout) rootView.findViewById(R.id.app_bar);
+        collapsingToolbarLayout = rootView.findViewById(R.id.collapsing_toolbar);
+        appBarLayout = rootView.findViewById(R.id.app_bar);
 
         if (getArguments().getBoolean("transition")) {
             artistArt.setTransitionName(getArguments().getString("transition_name"));
         }
 
-        toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
+        toolbar = rootView.findViewById(R.id.toolbar);
         setupToolbar();
         setUpArtistDetails();
 
         getChildFragmentManager().beginTransaction().replace(R.id.container, ArtistMusicFragment.newInstance(artistID)).commit();
 
-
         return rootView;
     }
 
     private void setupToolbar() {
-
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
         final ActionBar ab = ((AppCompatActivity) getActivity()).getSupportActionBar();
@@ -124,7 +120,6 @@ public class ArtistDetailFragment extends Fragment {
     }
 
     private void setUpArtistDetails() {
-
         final Artist artist = ArtistLoader.getArtist(getActivity(), artistID);
         List<Song> songList = ArtistSongLoader.getSongsForArtist(getActivity(), artistID);
         mAdapter = new ArtistSongAdapter(getActivity(), songList, artistID);
@@ -163,11 +158,9 @@ public class ArtistDetailFragment extends Fragment {
                                                             ATEUtils.setStatusBarColor(getActivity(), Helpers.getATEKey(getActivity()), primaryColor);
                                                     }
                                                 }
-
                                             }
                                         });
                                     } catch (Exception ignored) {
-
                                     }
                                 }
                             });
@@ -178,16 +171,12 @@ public class ArtistDetailFragment extends Fragment {
                             setBlurredPlaceholder(artist);
                         }
                     }, 100);
-
                 }
             }
 
             @Override
-            public void artistInfoFailed() {
-
-            }
+            public void artistInfoFailed() { }
         });
-
     }
 
     private void setBlurredPlaceholder(LastfmArtist artist) {
@@ -263,5 +252,4 @@ public class ArtistDetailFragment extends Fragment {
         protected void onPreExecute() {
         }
     }
-
 }

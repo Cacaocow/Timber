@@ -86,7 +86,6 @@ public class MusicPlaybackState {
     }
 
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
         db.execSQL("DROP TABLE IF EXISTS " + PlaybackQueueColumns.NAME);
         db.execSQL("DROP TABLE IF EXISTS " + PlaybackHistoryColumns.NAME);
         onCreate(db);
@@ -169,7 +168,6 @@ public class MusicPlaybackState {
         } finally {
             if (cursor != null) {
                 cursor.close();
-                cursor = null;
             }
         }
     }
@@ -195,7 +193,6 @@ public class MusicPlaybackState {
         } finally {
             if (cursor != null) {
                 cursor.close();
-                cursor = null;
             }
         }
     }
@@ -210,7 +207,6 @@ public class MusicPlaybackState {
     }
 
     public class PlaybackHistoryColumns {
-
         public static final String NAME = "playbackhistory";
 
         public static final String POSITION = "position";

@@ -22,7 +22,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.media.AudioManager;
-import android.media.session.MediaSessionManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -42,7 +41,6 @@ import com.google.android.gms.cast.framework.CastSession;
 import com.google.android.gms.cast.framework.Session;
 import com.google.android.gms.cast.framework.SessionManager;
 import com.google.android.gms.cast.framework.SessionManagerListener;
-import com.google.android.gms.cast.framework.media.widget.ExpandedControllerActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.naman14.timber.ITimberService;
@@ -213,7 +211,7 @@ public class BaseActivity extends ATEActivity implements ServiceConnection, Musi
 
         try {
             unregisterReceiver(mPlaybackStatus);
-        } catch (final Throwable e) {
+        } catch (final Throwable ignored) {
         }
         mMusicStateListener.clear();
     }
@@ -358,7 +356,7 @@ public class BaseActivity extends ATEActivity implements ServiceConnection, Musi
 
 
         public PlaybackStatus(final BaseActivity activity) {
-            mReference = new WeakReference<BaseActivity>(activity);
+            mReference = new WeakReference<>(activity);
         }
 
         @Override
@@ -366,18 +364,24 @@ public class BaseActivity extends ATEActivity implements ServiceConnection, Musi
             final String action = intent.getAction();
             BaseActivity baseActivity = mReference.get();
             if (baseActivity != null) {
-                if (action.equals(MusicService.META_CHANGED)) {
-                    baseActivity.onMetaChanged();
-                } else if (action.equals(MusicService.PLAYSTATE_CHANGED)) {
-//                    baseActivity.mPlayPauseProgressButton.getPlayPauseButton().updateState();
-                } else if (action.equals(MusicService.REFRESH)) {
-                    baseActivity.restartLoader();
-                } else if (action.equals(MusicService.PLAYLIST_CHANGED)) {
-                    baseActivity.onPlaylistChanged();
-                } else if (action.equals(MusicService.TRACK_ERROR)) {
-                    final String errorMsg = context.getString(R.string.error_playing_track,
+                switch (action) {
+                    case MusicService.META_CHANGED:
+                        baseActivity.onMetaChanged();
+                        break;
+                    case MusicService.PLAYSTATE_CHANGED:
+//                      baseActivity.mPlayPauseProgressButton.getPlayPauseButton().updateState();
+                        break;
+                    case MusicService.REFRESH:
+                        baseActivity.restartLoader();
+                        break;
+                    case MusicService.PLAYLIST_CHANGED:
+                        baseActivity.onPlaylistChanged();
+                        break;
+                    case MusicService.TRACK_ERROR:
+                        final String errorMsg = context.getString(R.string.error_playing_track,
                             intent.getStringExtra(MusicService.TrackErrorExtra.TRACK_NAME));
-                    Toast.makeText(baseActivity, errorMsg, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(baseActivity, errorMsg, Toast.LENGTH_SHORT).show();
+                        break;
                 }
             }
         }

@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,7 +27,6 @@ import net.steamcrafted.materialiconlib.MaterialDrawableBuilder;
 /**
  * Created by naman on 22/02/17.
  */
-
 public class Timber5 extends BaseNowplayingFragment {
 
     ImageView mBlurredArt;
@@ -34,15 +34,15 @@ public class Timber5 extends BaseNowplayingFragment {
     SlidingQueueAdapter adapter;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(
                 R.layout.fragment_timber5, container, false);
 
         setMusicStateListener();
         setSongDetails(rootView);
 
-        mBlurredArt = (ImageView) rootView.findViewById(R.id.album_art_blurred);
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.queue_recyclerview_horizontal) ;
+        mBlurredArt = rootView.findViewById(R.id.album_art_blurred);
+        recyclerView = rootView.findViewById(R.id.queue_recyclerview_horizontal) ;
         initGestures(mBlurredArt);
         setupSlidingQueue();
 

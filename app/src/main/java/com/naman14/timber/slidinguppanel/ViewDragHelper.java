@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-
 package com.naman14.timber.slidinguppanel;
 
 import android.content.Context;
@@ -1003,7 +1002,6 @@ public class ViewDragHelper {
         if (checkNewEdgeDrag(dy, dx, pointerId, EDGE_BOTTOM)) {
             dragsStarted |= EDGE_BOTTOM;
         }
-
         if (dragsStarted != 0) {
             mEdgeDragsInProgress[pointerId] |= dragsStarted;
             mCallback.onEdgeDragStarted(dragsStarted, pointerId);

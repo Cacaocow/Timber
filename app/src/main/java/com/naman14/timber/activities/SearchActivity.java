@@ -46,7 +46,6 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class SearchActivity extends BaseActivity implements SearchView.OnQueryTextListener, View.OnTouchListener {
-
     private final Executor mSearchExecutor = Executors.newSingleThreadExecutor();
     @Nullable
     private AsyncTask mSearchTask = null;
@@ -62,26 +61,23 @@ public class SearchActivity extends BaseActivity implements SearchView.OnQueryTe
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
         mImm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+        recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new SearchAdapter(this);
         recyclerView.setAdapter(adapter);
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
-
         getMenuInflater().inflate(R.menu.menu_search, menu);
 
         mSearchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.menu_search));
@@ -139,7 +135,6 @@ public class SearchActivity extends BaseActivity implements SearchView.OnQueryTe
 
     @Override
     public boolean onQueryTextChange(final String newText) {
-
         if (newText.equals(queryString)) {
             return true;
         }

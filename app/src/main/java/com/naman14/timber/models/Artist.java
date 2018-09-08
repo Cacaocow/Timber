@@ -15,7 +15,6 @@
 package com.naman14.timber.models;
 
 public class Artist {
-
     public final int albumCount;
     public final long id;
     public final String name;
@@ -34,5 +33,4 @@ public class Artist {
         this.songCount = _songCount;
         this.albumCount = _albumCount;
     }
-
 }

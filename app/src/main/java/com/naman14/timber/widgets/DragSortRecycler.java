@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
-
 public class DragSortRecycler extends RecyclerView.ItemDecoration implements RecyclerView.OnItemTouchListener {
 
     final String TAG = "DragSortRecycler";
@@ -286,7 +285,6 @@ public class DragSortRecycler extends RecyclerView.ItemDecoration implements Rec
 
     @Override
     public void onRequestDisallowInterceptTouchEvent(boolean b) {
-
     }
 
     @Override
@@ -307,7 +305,6 @@ public class DragSortRecycler extends RecyclerView.ItemDecoration implements Rec
             rv.invalidateItemDecorations();
             return;
         }
-
 
         fingerY = (int) e.getY();
 
@@ -394,7 +391,6 @@ public class DragSortRecycler extends RecyclerView.ItemDecoration implements Rec
 
     public interface OnDragStateChangedListener {
         void onDragStart();
-
         void onDragStop();
     }
 }

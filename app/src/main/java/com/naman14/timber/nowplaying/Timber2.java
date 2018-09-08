@@ -20,12 +20,12 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.afollestad.appthemeengine.Config;
 import com.naman14.timber.MusicPlayer;
 import com.naman14.timber.MusicService;
 import com.naman14.timber.R;
@@ -34,17 +34,16 @@ import com.naman14.timber.utils.ImageUtils;
 import net.steamcrafted.materialiconlib.MaterialDrawableBuilder;
 
 public class Timber2 extends BaseNowplayingFragment {
-
     ImageView mBlurredArt;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(
                 R.layout.fragment_timber2, container, false);
 
         setMusicStateListener();
         setSongDetails(rootView);
-        mBlurredArt = (ImageView) rootView.findViewById(R.id.album_art_blurred);
+        mBlurredArt = rootView.findViewById(R.id.album_art_blurred);
 
         initGestures(mBlurredArt);
 

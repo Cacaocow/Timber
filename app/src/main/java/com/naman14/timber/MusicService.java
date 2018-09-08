@@ -201,22 +201,15 @@ public class MusicService extends Service {
     private ComponentName mMediaButtonReceiverComponent;
 
     private int mCardId;
-
     private int mPlayPos = -1;
-
     private int mNextPlayPos = -1;
-
     private int mOpenFailedCounter = 0;
-
     private int mMediaMountedCount = 0;
-
     private int mShuffleMode = SHUFFLE_NONE;
-
     private int mRepeatMode = REPEAT_NONE;
-
     private int mServiceStartId = -1;
 
-    private ArrayList<MusicPlaybackTrack> mPlaylist = new ArrayList<MusicPlaybackTrack>(100);
+    private ArrayList<MusicPlaybackTrack> mPlaylist = new ArrayList<>(100);
 
     private long[] mAutoShuffleList = null;
 
@@ -241,9 +234,7 @@ public class MusicService extends Service {
         public void onReceive(final Context context, final Intent intent) {
             final String command = intent.getStringExtra(CMDNAME);
 
-
             handleCommandIntent(intent);
-
         }
     };
     private ContentObserver mMediaStoreObserver;
@@ -447,7 +438,6 @@ public class MusicService extends Service {
         audioEffectsIntent.putExtra(AudioEffect.EXTRA_PACKAGE_NAME, getPackageName());
         sendBroadcast(audioEffectsIntent);
 
-
         mAlarmManager.cancel(mShutdownIntent);
 
         mPlayerHandler.removeCallbacksAndMessages(null);
@@ -588,7 +578,6 @@ public class MusicService extends Service {
             session.mUsername = null;
         }
         notifyChange(META_CHANGED);
-
     }
 
     private void updateNotification() {
@@ -648,7 +637,6 @@ public class MusicService extends Service {
         if (cursor != null && cursor.moveToFirst()) {
             mCardId = cursor.getInt(0);
             cursor.close();
-            cursor = null;
         }
         return mCardId;
     }
@@ -667,11 +655,11 @@ public class MusicService extends Service {
                 @Override
                 public void onReceive(final Context context, final Intent intent) {
                     final String action = intent.getAction();
-                    if (action.equals(Intent.ACTION_MEDIA_EJECT)) {
+                    if (Intent.ACTION_MEDIA_EJECT.equals(action)) {
                         saveQueue(true);
                         mQueueIsSaveable = false;
                         closeExternalStorageFiles(intent.getData().getPath());
-                    } else if (action.equals(Intent.ACTION_MEDIA_MOUNTED)) {
+                    } else if (Intent.ACTION_MEDIA_MOUNTED.equals(action)) {
                         mMediaMountedCount++;
                         mCardId = getCardId();
                         reloadQueueAfterPermissionCheck();
@@ -942,12 +930,10 @@ public class MusicService extends Service {
         } else if (mShuffleMode == SHUFFLE_NORMAL) {
             final int numTracks = mPlaylist.size();
 
-
             final int[] trackNumPlays = new int[numTracks];
             for (int i = 0; i < numTracks; i++) {
                 trackNumPlays[i] = 0;
             }
-
 
             final int numHistory = mHistory.size();
             for (int i = 0; i < numHistory; i++) {
@@ -972,12 +958,10 @@ public class MusicService extends Service {
                 }
             }
 
-
             if (minNumPlays > 0 && numTracksWithMinNumPlays == numTracks
                     && mRepeatMode != REPEAT_ALL && !force) {
                 return -1;
             }
-
 
             int skip = mShuffler.nextInt(numTracksWithMinNumPlays);
             for (int i = 0; i < trackNumPlays.length; i++) {
@@ -1043,11 +1027,10 @@ public class MusicService extends Service {
             }
             mAutoShuffleList = list;
             return true;
-        } catch (final RuntimeException e) {
+        } catch (final RuntimeException ignore) {
         } finally {
             if (cursor != null) {
                 cursor.close();
-                cursor = null;
             }
         }
         return false;
@@ -1127,30 +1110,30 @@ public class MusicService extends Service {
         musicIntent.setAction(what.replace(TIMBER_PACKAGE_NAME, MUSIC_PACKAGE_NAME));
         sendStickyBroadcast(musicIntent);
 
-        if (what.equals(META_CHANGED)) {
+        switch (what) {
+            case META_CHANGED:
+                mRecentStore.addSongId(getAudioId());
+                mSongPlayCount.bumpSongCount(getAudioId());
+                break;
+            case QUEUE_CHANGED:
+                saveQueue(true);
+                if (isPlaying()) {
 
-            mRecentStore.addSongId(getAudioId());
-            mSongPlayCount.bumpSongCount(getAudioId());
-
-        } else if (what.equals(QUEUE_CHANGED)) {
-            saveQueue(true);
-            if (isPlaying()) {
-
-                if (mNextPlayPos >= 0 && mNextPlayPos < mPlaylist.size()
-                        && getShuffleMode() != SHUFFLE_NONE) {
-                    setNextTrack(mNextPlayPos);
-                } else {
-                    setNextTrack();
+                    if (mNextPlayPos >= 0 && mNextPlayPos < mPlaylist.size()
+                            && getShuffleMode() != SHUFFLE_NONE) {
+                        setNextTrack(mNextPlayPos);
+                    } else {
+                        setNextTrack();
+                    }
                 }
-            }
-        } else {
-            saveQueue(false);
+                break;
+            default:
+                saveQueue(false);
         }
 
         if (what.equals(PLAYSTATE_CHANGED)) {
             updateNotification();
         }
-
     }
 
     @SuppressWarnings("deprecation")
@@ -1182,12 +1165,10 @@ public class MusicService extends Service {
                 editor.putLong(MediaMetadataRetriever.METADATA_KEY_DURATION, duration());
                 editor.putBitmap(MediaMetadataEditor.BITMAP_KEY_ARTWORK, albumArt);
                 editor.apply();
-
             }
             mRemoteControlClient.setPlaybackState(playState);
         }
     }
-
 
     private void updateMediaSession(final String what) {
         int playState = mIsSupposedToBePlaying
@@ -1345,7 +1326,7 @@ public class MusicService extends Service {
         }
     }
 
-    private final PendingIntent retrievePlaybackAction(final String action) {
+    private PendingIntent retrievePlaybackAction(final String action) {
         final ComponentName serviceName = new ComponentName(this, MusicService.class);
         Intent intent = new Intent(action);
         intent.setComponent(serviceName);
@@ -1543,7 +1524,6 @@ public class MusicService extends Service {
     }
 
     private String getValueForDownloadedFile(Context context, Uri uri, String column) {
-
         Cursor cursor = null;
         final String[] projection = {
                 column
@@ -1802,7 +1782,6 @@ public class MusicService extends Service {
         if (index >= 0 && index < mPlaylist.size() && mPlayer.isInitialized()) {
             return mPlaylist.get(index);
         }
-
         return null;
     }
 
@@ -1909,7 +1888,6 @@ public class MusicService extends Service {
     private void setIsSupposedToBePlaying(boolean value, boolean notify) {
         if (mIsSupposedToBePlaying != value) {
             mIsSupposedToBePlaying = value;
-
 
             if (!mIsSupposedToBePlaying) {
                 scheduleDelayedShutdown();
@@ -2085,7 +2063,6 @@ public class MusicService extends Service {
 
     public void setAndRecordPlayPos(int nextPos) {
         synchronized (this) {
-
             if (mShuffleMode != SHUFFLE_NONE) {
                 mHistory.add(mPlayPos);
                 if (mHistory.size() > MAX_HISTORY_SIZE) {
@@ -2126,7 +2103,6 @@ public class MusicService extends Service {
     public int getPreviousPlayPosition(boolean removeFromHistory) {
         synchronized (this) {
             if (mShuffleMode == SHUFFLE_NORMAL) {
-
                 final int histsize = mHistory.size();
                 if (histsize == 0) {
                     return -1;
@@ -2135,7 +2111,7 @@ public class MusicService extends Service {
                 if (removeFromHistory) {
                     mHistory.remove(histsize - 1);
                 }
-                return pos.intValue();
+                return pos;
             } else {
                 if (mPlayPos > 0) {
                     return mPlayPos - 1;
@@ -2234,7 +2210,6 @@ public class MusicService extends Service {
     }
 
     public interface TrackErrorExtra {
-
         String TRACK_NAME = "trackname";
     }
 
@@ -2242,12 +2217,10 @@ public class MusicService extends Service {
         private final WeakReference<MusicService> mService;
         private float mCurrentVolume = 1.0f;
 
-
         public MusicPlayerHandler(final MusicService service, final Looper looper) {
             super(looper);
-            mService = new WeakReference<MusicService>(service);
+            mService = new WeakReference<>(service);
         }
-
 
         @Override
         public void handleMessage(final Message msg) {
@@ -2368,14 +2341,13 @@ public class MusicService extends Service {
             do {
                 next = mRandom.nextInt(interval);
             } while (next == mPrevious && interval > 1
-                    && !mPreviousNumbers.contains(Integer.valueOf(next)));
+                    && !mPreviousNumbers.contains(next));
             mPrevious = next;
             mHistoryOfNumbers.add(mPrevious);
             mPreviousNumbers.add(mPrevious);
             cleanUpHistory();
             return next;
         }
-
 
         private void cleanUpHistory() {
             if (!mHistoryOfNumbers.isEmpty() && mHistoryOfNumbers.size() >= MAX_HISTORY_SIZE) {
@@ -2411,13 +2383,11 @@ public class MusicService extends Service {
 
         private String mNextMediaPath;
 
-
         public MultiPlayer(final MusicService service) {
-            mService = new WeakReference<MusicService>(service);
+            mService = new WeakReference<>(service);
             mCurrentMediaPlayer.setWakeMode(mService.get(), PowerManager.PARTIAL_WAKE_LOCK);
 
         }
-
 
         public void setDataSource(final String path) {
             try {
@@ -2429,7 +2399,6 @@ public class MusicService extends Service {
                 e.printStackTrace();
             }
         }
-
 
         private boolean setDataSourceImpl(final MediaPlayer player, final String path) {
             try {
@@ -2454,7 +2423,6 @@ public class MusicService extends Service {
             player.setOnErrorListener(this);
             return true;
         }
-
 
         public void setNextDataSource(final String path) {
             mNextMediaPath = null;
@@ -2491,53 +2459,43 @@ public class MusicService extends Service {
             }
         }
 
-
         public void setHandler(final Handler handler) {
             mHandler = handler;
         }
-
 
         public boolean isInitialized() {
             return mIsInitialized;
         }
 
-
         public void start() {
             mCurrentMediaPlayer.start();
         }
-
 
         public void stop() {
             mCurrentMediaPlayer.reset();
             mIsInitialized = false;
         }
 
-
         public void release() {
             mCurrentMediaPlayer.release();
         }
-
 
         public void pause() {
             mCurrentMediaPlayer.pause();
         }
 
-
         public long duration() {
             return mCurrentMediaPlayer.getDuration();
         }
-
 
         public long position() {
             return mCurrentMediaPlayer.getCurrentPosition();
         }
 
-
         public long seek(final long whereto) {
             mCurrentMediaPlayer.seekTo((int) whereto);
             return whereto;
         }
-
 
         public void setVolume(final float vol) {
             try {
@@ -2577,7 +2535,6 @@ public class MusicService extends Service {
             return false;
         }
 
-
         @Override
         public void onCompletion(final MediaPlayer mp) {
             if (mp == mCurrentMediaPlayer && mNextMediaPlayer != null) {
@@ -2595,13 +2552,11 @@ public class MusicService extends Service {
     }
 
     private static final class ServiceStub extends ITimberService.Stub {
-
         private final WeakReference<MusicService> mService;
 
         private ServiceStub(final MusicService service) {
-            mService = new WeakReference<MusicService>(service);
+            mService = new WeakReference<>(service);
         }
-
 
         @Override
         public void openFile(final String path) throws RemoteException {
@@ -2623,7 +2578,6 @@ public class MusicService extends Service {
         public void pause() throws RemoteException {
             mService.get().pause();
         }
-
 
         @Override
         public void play() throws RemoteException {
@@ -2806,12 +2760,10 @@ public class MusicService extends Service {
             return mService.get().removeTracks(first, last);
         }
 
-
         @Override
         public int removeTrack(final long id) throws RemoteException {
             return mService.get().removeTrack(id);
         }
-
 
         @Override
         public boolean removeTrackAtPosition(final long id, final int position)
@@ -2819,22 +2771,18 @@ public class MusicService extends Service {
             return mService.get().removeTrackAtPosition(id, position);
         }
 
-
         @Override
         public int getMediaMountedCount() throws RemoteException {
             return mService.get().getMediaMountedCount();
         }
 
-
         @Override
         public int getAudioSessionId() throws RemoteException {
             return mService.get().getAudioSessionId();
         }
-
     }
 
     private class MediaStoreObserver extends ContentObserver implements Runnable {
-
         private static final long REFRESH_DELAY = 500;
         private Handler mHandler;
 
@@ -2845,15 +2793,12 @@ public class MusicService extends Service {
 
         @Override
         public void onChange(boolean selfChange) {
-
-
             mHandler.removeCallbacks(this);
             mHandler.postDelayed(this, REFRESH_DELAY);
         }
 
         @Override
         public void run() {
-
             Log.e("ELEVEN", "calling refresh!");
             refresh();
         }

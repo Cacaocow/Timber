@@ -30,7 +30,6 @@ import com.naman14.timber.models.Artist;
 import com.naman14.timber.utils.Constants;
 
 public class SimilarArtistFragment extends Fragment {
-
     private long artistID = -1;
 
     public static SimilarArtistFragment newInstance(long id) {
@@ -68,7 +67,5 @@ public class SimilarArtistFragment extends Fragment {
         });
 
         return rootView;
-
     }
-
 }

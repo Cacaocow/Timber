@@ -22,7 +22,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 public class RecentStore {
-
     private static final int MAX_ITEMS_IN_DB = 100;
 
     private static RecentStore sInstance = null;
@@ -59,7 +58,6 @@ public class RecentStore {
         database.beginTransaction();
 
         try {
-
             Cursor mostRecentItem = null;
             try {
                 mostRecentItem = queryRecentIds("1");
@@ -71,10 +69,8 @@ public class RecentStore {
             } finally {
                 if (mostRecentItem != null) {
                     mostRecentItem.close();
-                    mostRecentItem = null;
                 }
             }
-
 
             final ContentValues values = new ContentValues(2);
             values.put(RecentStoreColumns.ID, songId);
@@ -99,7 +95,6 @@ public class RecentStore {
             } finally {
                 if (oldest != null) {
                     oldest.close();
-                    oldest = null;
                 }
             }
         } finally {
@@ -108,13 +103,11 @@ public class RecentStore {
         }
     }
 
-
     public void removeItem(final long songId) {
         final SQLiteDatabase database = mMusicDatabase.getWritableDatabase();
         database.delete(RecentStoreColumns.NAME, RecentStoreColumns.ID + " = ?", new String[]{
                 String.valueOf(songId)
         });
-
     }
 
     public void deleteAll() {
@@ -133,10 +126,8 @@ public class RecentStore {
     public interface RecentStoreColumns {
         /* Table name */
         String NAME = "recenthistory";
-
         /* Album IDs column */
         String ID = "songid";
-
         /* Time played column */
         String TIMEPLAYED = "timeplayed";
     }

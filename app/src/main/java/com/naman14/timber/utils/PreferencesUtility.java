@@ -28,7 +28,6 @@ import com.naman14.timber.MusicPlayer;
 import com.naman14.timber.MusicService;
 
 public final class PreferencesUtility {
-
     public static final String ARTIST_SORT_ORDER = "artist_sort_order";
     public static final String ARTIST_SONG_SORT_ORDER = "artist_song_sort_order";
     public static final String ARTIST_ALBUM_SORT_ORDER = "artist_album_sort_order";
@@ -283,4 +282,3 @@ public final class PreferencesUtility {
         return mPreferences.getBoolean(ALWAYS_LOAD_ALBUM_IMAGES_LASTFM, false);
     }
 }
-

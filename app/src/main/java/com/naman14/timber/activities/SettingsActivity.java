@@ -36,7 +36,6 @@ import com.naman14.timber.utils.Constants;
 import com.naman14.timber.utils.PreferencesUtility;
 
 public class SettingsActivity extends BaseThemedActivity implements ColorChooserDialog.ColorCallback, ATEActivityThemeCustomizer {
-
     private String action;
 
     @Override
@@ -49,14 +48,14 @@ public class SettingsActivity extends BaseThemedActivity implements ColorChooser
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         action = getIntent().getAction();
 
-        if (action.equals(Constants.SETTINGS_STYLE_SELECTOR)) {
+        if (Constants.SETTINGS_STYLE_SELECTOR.equals(action)) {
             getSupportActionBar().setTitle(R.string.now_playing);
             String what = getIntent().getExtras().getString(Constants.SETTINGS_STYLE_SELECTOR_WHAT);
             Fragment fragment = StyleSelectorFragment.newInstance(what);
@@ -70,7 +69,6 @@ public class SettingsActivity extends BaseThemedActivity implements ColorChooser
             fragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, fragment).commit();
         }
-
     }
 
     @Override
@@ -106,5 +104,4 @@ public class SettingsActivity extends BaseThemedActivity implements ColorChooser
         config.commit();
         recreate(); // recreation needed to reach the checkboxes in the preferences layout
     }
-
 }

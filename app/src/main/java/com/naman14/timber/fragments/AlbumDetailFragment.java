@@ -44,7 +44,6 @@ import com.afollestad.appthemeengine.ATE;
 import com.afollestad.appthemeengine.Config;
 import com.naman14.timber.MusicPlayer;
 import com.naman14.timber.R;
-import com.naman14.timber.activities.MainActivity;
 import com.naman14.timber.adapters.AlbumSongsAdapter;
 import com.naman14.timber.dataloaders.AlbumLoader;
 import com.naman14.timber.dataloaders.AlbumSongLoader;
@@ -70,7 +69,6 @@ import net.steamcrafted.materialiconlib.MaterialDrawableBuilder;
 import java.util.List;
 
 public class AlbumDetailFragment extends Fragment {
-
     private long albumID = -1;
 
     private ImageView albumArt, artistArt;
@@ -122,21 +120,19 @@ public class AlbumDetailFragment extends Fragment {
         final View rootView = inflater.inflate(
                 R.layout.fragment_album_detail, container, false);
 
-        albumArt = (ImageView) rootView.findViewById(R.id.album_art);
-        artistArt = (ImageView) rootView.findViewById(R.id.artist_art);
-        albumTitle = (TextView) rootView.findViewById(R.id.album_title);
-        albumDetails = (TextView) rootView.findViewById(R.id.album_details);
-
-        toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
-
-        fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
+        albumArt = rootView.findViewById(R.id.album_art);
+        artistArt = rootView.findViewById(R.id.artist_art);
+        albumTitle = rootView.findViewById(R.id.album_title);
+        albumDetails = rootView.findViewById(R.id.album_details);
+        toolbar = rootView.findViewById(R.id.toolbar);
+        fab = rootView.findViewById(R.id.fab);
 
         if (getArguments().getBoolean("transition")) {
             albumArt.setTransitionName(getArguments().getString("transition_name"));
         }
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview);
-        collapsingToolbarLayout = (CollapsingToolbarLayout) rootView.findViewById(R.id.collapsing_toolbar);
-        appBarLayout = (AppBarLayout) rootView.findViewById(R.id.app_bar);
+        recyclerView = rootView.findViewById(R.id.recyclerview);
+        collapsingToolbarLayout = rootView.findViewById(R.id.collapsing_toolbar);
+        appBarLayout = rootView.findViewById(R.id.app_bar);
         recyclerView.setEnabled(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -145,7 +141,6 @@ public class AlbumDetailFragment extends Fragment {
         setAlbumart();
 
         setUpEverything();
-
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -230,45 +225,32 @@ public class AlbumDetailFragment extends Fragment {
                                                                               }
                                                                           }
                                                                       }
-
                             );
-                        } catch (
-                                Exception ignored
-                                )
-
-                        {
-
+                        } catch (Exception ignored) {
                         }
                     }
 
                     @Override
                     public void onLoadingCancelled(String imageUri, View view) {
                     }
-
                 }
-
         );
     }
 
     private void setAlbumDetails() {
-
         String songCount = TimberUtils.makeLabel(getActivity(), R.plurals.Nsongs, album.songCount);
 
         String year = (album.year != 0) ? (" - " + String.valueOf(album.year)) : "";
 
         albumTitle.setText(album.title);
-        albumDetails.setText(album.artistName + " - " + songCount + year);
-
-
+        albumDetails.setText(String.format("%s - %s %s", album.artistName, songCount, year));
     }
 
     private void setUpAlbumSongs() {
-
         List<Song> songList = AlbumSongLoader.getSongsForAlbum(getActivity(), albumID);
         mAdapter = new AlbumSongsAdapter(getActivity(), songList, albumID);
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
         recyclerView.setAdapter(mAdapter);
-
     }
 
     private void setUpEverything() {
@@ -357,7 +339,6 @@ public class AlbumDetailFragment extends Fragment {
     }
 
     private class EnterTransitionListener extends SimplelTransitionListener {
-
         @TargetApi(21)
         public void onTransitionEnd(Transition paramTransition) {
             FabAnimationUtils.scaleIn(fab);

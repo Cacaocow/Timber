@@ -10,7 +10,6 @@ import com.naman14.timber.MusicPlayer;
 /**
  * Created by nv95 on 02.11.16.
  */
-
 public class SlideTrackSwitcher implements View.OnTouchListener {
 
     private static final int SWIPE_THRESHOLD = 200;
@@ -35,7 +34,6 @@ public class SlideTrackSwitcher implements View.OnTouchListener {
     }
 
     private class SwipeListener extends GestureDetector.SimpleOnGestureListener {
-
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
             boolean result = false;
@@ -100,6 +98,5 @@ public class SlideTrackSwitcher implements View.OnTouchListener {
     }
 
     public void onClick() {
-
     }
 }

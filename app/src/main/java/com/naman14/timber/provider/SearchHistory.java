@@ -71,7 +71,6 @@ public class SearchHistory {
         database.beginTransaction();
 
         try {
-
             database.delete(SearchHistoryColumns.NAME,
                     SearchHistoryColumns.SEARCHSTRING + " = ? COLLATE NOCASE",
                     new String[]{trimmedString});
@@ -99,7 +98,6 @@ public class SearchHistory {
             } finally {
                 if (oldest != null) {
                     oldest.close();
-                    oldest = null;
                 }
             }
         } finally {
@@ -132,20 +130,16 @@ public class SearchHistory {
         } finally {
             if (searches != null) {
                 searches.close();
-                searches = null;
             }
         }
-
         return results;
     }
 
     public interface SearchHistoryColumns {
         /* Table name */
         String NAME = "searchhistory";
-
         /* What was searched */
         String SEARCHSTRING = "searchstring";
-
         /* Time of search */
         String TIMESEARCHED = "timesearched";
     }

@@ -52,7 +52,6 @@ import com.naman14.timber.dataloaders.TopTracksLoader;
 import com.naman14.timber.listeners.SimplelTransitionListener;
 import com.naman14.timber.models.Song;
 import com.naman14.timber.utils.Constants;
-import com.naman14.timber.utils.PreferencesUtility;
 import com.naman14.timber.utils.TimberUtils;
 import com.naman14.timber.widgets.DividerItemDecoration;
 import com.naman14.timber.widgets.DragSortRecycler;
@@ -63,7 +62,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public class PlaylistDetailActivity extends BaseActivity implements ATEActivityThemeCustomizer, ATEToolbarCustomizer {
-
     private String action;
     private long playlistID;
     private HashMap<String, Runnable> playlistsMap = new HashMap<>();
@@ -105,13 +103,12 @@ public class PlaylistDetailActivity extends BaseActivity implements ATEActivityT
     @TargetApi(21)
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playlist_detail);
 
         action = getIntent().getAction();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -122,9 +119,9 @@ public class PlaylistDetailActivity extends BaseActivity implements ATEActivityT
         playlistsMap.put(Constants.NAVIGATE_PLAYLIST_TOPTRACKS, playlistToptracks);
         playlistsMap.put(Constants.NAVIGATE_PLAYLIST_USERCREATED, playlistUsercreated);
 
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
-        blurFrame = (ImageView) findViewById(R.id.blurFrame);
-        playlistname = (TextView) findViewById(R.id.name);
+        recyclerView = findViewById(R.id.recyclerview);
+        blurFrame = findViewById(R.id.blurFrame);
+        playlistname = findViewById(R.id.name);
         foreground = findViewById(R.id.foreground);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -137,7 +134,6 @@ public class PlaylistDetailActivity extends BaseActivity implements ATEActivityT
         } else {
             setUpSongs();
         }
-
     }
 
     private void setAlbumart() {

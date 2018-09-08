@@ -1,27 +1,18 @@
 package com.naman14.timber.adapters;
 
 import android.app.Activity;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.cast.MediaInfo;
-import com.google.android.gms.cast.MediaMetadata;
 import com.google.android.gms.cast.framework.CastSession;
-import com.google.android.gms.cast.framework.media.RemoteMediaClient;
-import com.google.android.gms.common.images.WebImage;
 import com.naman14.timber.MusicPlayer;
 import com.naman14.timber.activities.BaseActivity;
-import com.naman14.timber.activities.MainActivity;
 import com.naman14.timber.cast.TimberCastHelper;
-import com.naman14.timber.cast.WebServer;
 import com.naman14.timber.models.Song;
 import com.naman14.timber.utils.NavigationUtils;
 import com.naman14.timber.utils.TimberUtils;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -29,7 +20,6 @@ import java.util.List;
  */
 
 public class BaseSongAdapter<V extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<V> {
-
     @Override
     public V onCreateViewHolder(ViewGroup parent, int viewType) {
         return null;
@@ -51,17 +41,14 @@ public class BaseSongAdapter<V extends RecyclerView.ViewHolder> extends Recycler
     }
 
     public class ItemHolder extends RecyclerView.ViewHolder {
-
         public ItemHolder(View view) {
             super(view);
         }
-
     }
 
     public void playAll(final Activity context, final long[] list, int position,
                         final long sourceId, final TimberUtils.IdType sourceType,
                         final boolean forceShuffle, final Song currentSong, boolean navigateNowPlaying) {
-
         if (context instanceof BaseActivity) {
             CastSession castSession = ((BaseActivity) context).getCastSession();
             if (castSession != null) {
@@ -77,10 +64,7 @@ public class BaseSongAdapter<V extends RecyclerView.ViewHolder> extends Recycler
         if (navigateNowPlaying) {
             NavigationUtils.navigateToNowplaying(context, true);
         }
-
-
     }
     public void removeSongAt(int i){}
     public void updateDataSet(List<Song> arraylist) {}
-
 }

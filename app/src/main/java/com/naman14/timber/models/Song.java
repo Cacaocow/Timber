@@ -15,7 +15,6 @@
 package com.naman14.timber.models;
 
 public class Song {
-
     public final long albumId;
     public final String albumName;
     public final long artistId;

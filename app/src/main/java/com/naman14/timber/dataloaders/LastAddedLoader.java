@@ -26,11 +26,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LastAddedLoader {
-
     private static Cursor mCursor;
 
     public static List<Song> getLastAddedSongs(Context context) {
-
         ArrayList<Song> mSongList = new ArrayList<>();
         mCursor = makeLastAddedCursor(context);
 
@@ -57,7 +55,7 @@ public class LastAddedLoader {
         return mSongList;
     }
 
-    public static final Cursor makeLastAddedCursor(final Context context) {
+    public static Cursor makeLastAddedCursor(final Context context) {
         //four weeks ago
         long fourWeeksAgo = (System.currentTimeMillis() / 1000) - (4 * 3600 * 24 * 7);
         long cutoff = PreferencesUtility.getInstance(context).getLastAddedCutoff();

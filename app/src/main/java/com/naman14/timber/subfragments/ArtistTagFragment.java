@@ -24,7 +24,6 @@ import android.view.ViewGroup;
 import com.naman14.timber.R;
 
 public class ArtistTagFragment extends Fragment {
-
     private static final String ARG_PAGE_NUMBER = "pageNumber";
 
     public static ArtistTagFragment newInstance(int pageNumber) {
@@ -41,5 +40,4 @@ public class ArtistTagFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.layout_artist_tag, container, false);
         return rootView;
     }
-
 }

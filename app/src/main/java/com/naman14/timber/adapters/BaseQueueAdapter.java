@@ -40,7 +40,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.util.List;
 
 public class BaseQueueAdapter extends RecyclerView.Adapter<BaseQueueAdapter.ItemHolder> {
-
     public static int currentlyPlayingPosition;
     private List<Song> arraylist;
     private AppCompatActivity mContext;
@@ -56,8 +55,7 @@ public class BaseQueueAdapter extends RecyclerView.Adapter<BaseQueueAdapter.Item
     @Override
     public ItemHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_song_timber1, null);
-        ItemHolder ml = new ItemHolder(v);
-        return ml;
+        return new ItemHolder(v);
     }
 
     @Override
@@ -91,11 +89,9 @@ public class BaseQueueAdapter extends RecyclerView.Adapter<BaseQueueAdapter.Item
     }
 
     private void setOnPopupMenuListener(ItemHolder itemHolder, final int position) {
-
         itemHolder.popupMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 final PopupMenu menu = new PopupMenu(mContext, v);
                 menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
@@ -160,11 +156,11 @@ public class BaseQueueAdapter extends RecyclerView.Adapter<BaseQueueAdapter.Item
 
         public ItemHolder(View view) {
             super(view);
-            this.title = (TextView) view.findViewById(R.id.song_title);
-            this.artist = (TextView) view.findViewById(R.id.song_artist);
-            this.albumArt = (ImageView) view.findViewById(R.id.albumArt);
-            this.popupMenu = (ImageView) view.findViewById(R.id.popup_menu);
-            visualizer = (MusicVisualizer) view.findViewById(R.id.visualizer);
+            this.title = view.findViewById(R.id.song_title);
+            this.artist = view.findViewById(R.id.song_artist);
+            this.albumArt = view.findViewById(R.id.albumArt);
+            this.popupMenu = view.findViewById(R.id.popup_menu);
+            visualizer = view.findViewById(R.id.visualizer);
             view.setOnClickListener(this);
         }
 
@@ -185,12 +181,6 @@ public class BaseQueueAdapter extends RecyclerView.Adapter<BaseQueueAdapter.Item
                     }, 50);
                 }
             }, 100);
-
         }
-
     }
-
 }
-
-
-

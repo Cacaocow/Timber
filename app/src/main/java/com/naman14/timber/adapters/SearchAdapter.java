@@ -46,39 +46,39 @@ import java.util.Collections;
 import java.util.List;
 
 public class SearchAdapter extends BaseSongAdapter<SearchAdapter.ItemHolder> {
-
     private Activity mContext;
     private List searchResults = Collections.emptyList();
 
     public SearchAdapter(Activity context) {
         this.mContext = context;
-
     }
 
     @Override
     public ItemHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+        ItemHolder ml;
         switch (viewType) {
             case 0:
                 View v0 = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_song, null);
-                ItemHolder ml0 = new ItemHolder(v0);
-                return ml0;
+                ml = new ItemHolder(v0);
+                break;
             case 1:
                 View v1 = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_album_search, null);
-                ItemHolder ml1 = new ItemHolder(v1);
-                return ml1;
+                ml = new ItemHolder(v1);
+                break;
             case 2:
                 View v2 = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_artist, null);
-                ItemHolder ml2 = new ItemHolder(v2);
-                return ml2;
+                ml = new ItemHolder(v2);
+                break;
             case 10:
                 View v10 = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.search_section_header, null);
-                ItemHolder ml10 = new ItemHolder(v10);
-                return ml10;
+                ml = new ItemHolder(v10);
+                break;
             default:
                 View v3 = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_song, null);
-                ItemHolder ml3 = new ItemHolder(v3);
-                return ml3;
+                ml = new ItemHolder(v3);
+                break;
         }
+        return ml;
     }
 
     @Override
@@ -143,9 +143,7 @@ public class SearchAdapter extends BaseSongAdapter<SearchAdapter.ItemHolder> {
     }
 
     @Override
-    public void onViewRecycled(ItemHolder itemHolder) {
-
-    }
+    public void onViewRecycled(ItemHolder itemHolder) { }
 
     @Override
     public int getItemCount() {
@@ -153,11 +151,9 @@ public class SearchAdapter extends BaseSongAdapter<SearchAdapter.ItemHolder> {
     }
 
     private void setOnPopupMenuListener(ItemHolder itemHolder, final int position) {
-
         itemHolder.menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 final PopupMenu menu = new PopupMenu(mContext, v);
                 menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
@@ -220,18 +216,16 @@ public class SearchAdapter extends BaseSongAdapter<SearchAdapter.ItemHolder> {
         public ItemHolder(View view) {
             super(view);
 
-            this.title = (TextView) view.findViewById(R.id.song_title);
-            this.songartist = (TextView) view.findViewById(R.id.song_artist);
-            this.albumsongcount = (TextView) view.findViewById(R.id.album_song_count);
-            this.artisttitle = (TextView) view.findViewById(R.id.artist_name);
-            this.albumtitle = (TextView) view.findViewById(R.id.album_title);
-            this.albumartist = (TextView) view.findViewById(R.id.album_artist);
-            this.albumArt = (ImageView) view.findViewById(R.id.albumArt);
-            this.artistImage = (ImageView) view.findViewById(R.id.artistImage);
-            this.menu = (ImageView) view.findViewById(R.id.popup_menu);
-
-            this.sectionHeader = (TextView) view.findViewById(R.id.section_header);
-
+            this.title = view.findViewById(R.id.song_title);
+            this.songartist = view.findViewById(R.id.song_artist);
+            this.albumsongcount = view.findViewById(R.id.album_song_count);
+            this.artisttitle = view.findViewById(R.id.artist_name);
+            this.albumtitle = view.findViewById(R.id.album_title);
+            this.albumartist = view.findViewById(R.id.album_artist);
+            this.albumArt = view.findViewById(R.id.albumArt);
+            this.artistImage = view.findViewById(R.id.artistImage);
+            this.menu = view.findViewById(R.id.popup_menu);
+            this.sectionHeader = view.findViewById(R.id.section_header);
 
             view.setOnClickListener(this);
         }
@@ -250,7 +244,6 @@ public class SearchAdapter extends BaseSongAdapter<SearchAdapter.ItemHolder> {
                                     false, (Song) searchResults.get(getAdapterPosition()), false);
                         }
                     }, 100);
-
                     break;
                 case 1:
                     NavigationUtils.goToAlbum(mContext, ((Album) searchResults.get(getAdapterPosition())).id);
@@ -264,11 +257,5 @@ public class SearchAdapter extends BaseSongAdapter<SearchAdapter.ItemHolder> {
                     break;
             }
         }
-
     }
 }
-
-
-
-
-

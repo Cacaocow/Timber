@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,12 +26,11 @@ import net.steamcrafted.materialiconlib.MaterialDrawableBuilder;
  */
 
 public class Timber6 extends BaseNowplayingFragment {
-
     TextView nextSong;
     CircleImageView nextArt;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(
                 R.layout.fragment_timber6, container, false);
 
@@ -42,8 +42,8 @@ public class Timber6 extends BaseNowplayingFragment {
         ((SeekBar) rootView.findViewById(R.id.song_progress)).getProgressDrawable().setColorFilter(new PorterDuffColorFilter(Color.WHITE, PorterDuff.Mode.MULTIPLY));
         ((SeekBar) rootView.findViewById(R.id.song_progress)).getThumb().setColorFilter(new PorterDuffColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP));
 
-        nextSong = (TextView) rootView.findViewById(R.id.title_next);
-        nextArt = (CircleImageView) rootView.findViewById(R.id.album_art_next);
+        nextSong = rootView.findViewById(R.id.title_next);
+        nextArt = rootView.findViewById(R.id.album_art_next);
 
         rootView.findViewById(R.id.nextView).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,17 +86,23 @@ public class Timber6 extends BaseNowplayingFragment {
 
             if (MusicPlayer.getRepeatMode() == 0) {
                 builder.setColor(Color.WHITE);
-            } else builder.setColor(accentColor);
+            } else {
+                builder.setColor(accentColor);
+            }
 
-            if (MusicPlayer.getRepeatMode() == MusicService.REPEAT_NONE) {
-                builder.setIcon(MaterialDrawableBuilder.IconValue.REPEAT);
-                builder.setColor(Color.WHITE);
-            } else if (MusicPlayer.getRepeatMode() == MusicService.REPEAT_CURRENT) {
-                builder.setIcon(MaterialDrawableBuilder.IconValue.REPEAT_ONCE);
-                builder.setColor(accentColor);
-            } else if (MusicPlayer.getRepeatMode() == MusicService.REPEAT_ALL) {
-                builder.setColor(accentColor);
-                builder.setIcon(MaterialDrawableBuilder.IconValue.REPEAT);
+            switch (MusicPlayer.getRepeatMode()) {
+                case MusicService.REPEAT_NONE:
+                    builder.setIcon(MaterialDrawableBuilder.IconValue.REPEAT);
+                    builder.setColor(Color.WHITE);
+                    break;
+                case MusicService.REPEAT_CURRENT:
+                    builder.setIcon(MaterialDrawableBuilder.IconValue.REPEAT_ONCE);
+                    builder.setColor(accentColor);
+                    break;
+                case MusicService.REPEAT_ALL:
+                    builder.setColor(accentColor);
+                    builder.setIcon(MaterialDrawableBuilder.IconValue.REPEAT);
+                    break;
             }
 
             repeat.setImageDrawable(builder.build());

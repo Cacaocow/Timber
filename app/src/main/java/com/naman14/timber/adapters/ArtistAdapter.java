@@ -48,7 +48,6 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
 import java.util.List;
 
 public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ItemHolder> implements BubbleTextGetter {
-
     private List<Artist> arraylist;
     private Activity mContext;
     private boolean isGrid;
@@ -65,15 +64,15 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ItemHolder
 
     @Override
     public ItemHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        ItemHolder ml;
         if (isGrid) {
             View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_artist_grid, null);
-            ItemHolder ml = new ItemHolder(v);
-            return ml;
+            ml = new ItemHolder(v);
         } else {
             View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_artist, null);
-            ItemHolder ml = new ItemHolder(v);
-            return ml;
+            ml = new ItemHolder(v);
         }
+        return ml;
     }
 
     @Override
@@ -84,7 +83,6 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ItemHolder
         String albumNmber = TimberUtils.makeLabel(mContext, R.plurals.Nalbums, localItem.albumCount);
         String songCount = TimberUtils.makeLabel(mContext, R.plurals.Nsongs, localItem.songCount);
         itemHolder.albums.setText(TimberUtils.makeCombinedString(mContext, albumNmber, songCount));
-
 
         LastFmClient.getInstance(mContext).getArtistInfo(new ArtistQuery(localItem.name), new ArtistInfoListener() {
             @Override
@@ -117,7 +115,6 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ItemHolder
                                                 }
                                             });
                                         }
-
                                     }
 
                                     @Override
@@ -150,9 +147,9 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ItemHolder
             }
         });
 
-        if (TimberUtils.isLollipop())
+        if (TimberUtils.isLollipop()) {
             itemHolder.artistImage.setTransitionName("transition_artist_art" + i);
-
+        }
     }
 
     @Override
@@ -183,9 +180,9 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ItemHolder
 
         public ItemHolder(View view) {
             super(view);
-            this.name = (TextView) view.findViewById(R.id.artist_name);
-            this.albums = (TextView) view.findViewById(R.id.album_song_count);
-            this.artistImage = (ImageView) view.findViewById(R.id.artistImage);
+            this.name = view.findViewById(R.id.artist_name);
+            this.albums = view.findViewById(R.id.album_song_count);
+            this.artistImage = view.findViewById(R.id.artistImage);
             this.footer = view.findViewById(R.id.footer);
             view.setOnClickListener(this);
         }
@@ -195,7 +192,6 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ItemHolder
             NavigationUtils.navigateToArtist(mContext, arraylist.get(getAdapterPosition()).id,
                     new Pair<View, String>(artistImage, "transition_artist_art" + getAdapterPosition()));
         }
-
     }
 }
 

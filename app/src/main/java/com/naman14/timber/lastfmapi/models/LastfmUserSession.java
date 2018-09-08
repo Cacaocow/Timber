@@ -14,7 +14,6 @@ public class LastfmUserSession {
     private static final String TOKEN = "key";
     private static LastfmUserSession session;
 
-
     public static LastfmUserSession getSession(Context context) {
         if (session != null) return session;
         SharedPreferences preferences = context.getSharedPreferences(LastFmClient.PREFERENCES_NAME, Context.MODE_PRIVATE);

@@ -126,7 +126,6 @@ public class Nammu {
         refreshMonitoredList();
     }
 
-
     //Permission monitoring part below
 
     /**

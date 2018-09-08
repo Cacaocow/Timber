@@ -23,6 +23,7 @@ import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -37,7 +38,6 @@ import android.widget.TextView;
 import com.naman14.timber.R;
 
 public class Helpers {
-
     public static void showAbout(AppCompatActivity activity) {
         FragmentManager fm = activity.getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
@@ -67,21 +67,22 @@ public class Helpers {
         }
 
         @Override
+        @NonNull
         public Dialog onCreateDialog(Bundle savedInstanceState) {
 
             LayoutInflater layoutInflater = (LayoutInflater) getActivity().getSystemService(
                     Context.LAYOUT_INFLATER_SERVICE);
             LinearLayout aboutBodyView = (LinearLayout) layoutInflater.inflate(R.layout.layout_about_dialog, null);
 
-            TextView appversion = (TextView) aboutBodyView.findViewById(R.id.app_version_name);
+            TextView appversion = aboutBodyView.findViewById(R.id.app_version_name);
 
-            TextView googleplus = (TextView) aboutBodyView.findViewById(R.id.googleplus);
-            TextView twitter = (TextView) aboutBodyView.findViewById(R.id.twitter);
-            TextView github = (TextView) aboutBodyView.findViewById(R.id.github);
-            TextView source = (TextView) aboutBodyView.findViewById(R.id.source);
-            TextView community = (TextView) aboutBodyView.findViewById(R.id.feature_request);
+            TextView googleplus = aboutBodyView.findViewById(R.id.googleplus);
+            TextView twitter = aboutBodyView.findViewById(R.id.twitter);
+            TextView github = aboutBodyView.findViewById(R.id.github);
+            TextView source = aboutBodyView.findViewById(R.id.source);
+            TextView community = aboutBodyView.findViewById(R.id.feature_request);
 
-            TextView dismiss = (TextView) aboutBodyView.findViewById(R.id.dismiss_dialog);
+            TextView dismiss = aboutBodyView.findViewById(R.id.dismiss_dialog);
             dismiss.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -148,7 +149,5 @@ public class Helpers {
                     .setView(aboutBodyView)
                     .create();
         }
-
     }
-
 }

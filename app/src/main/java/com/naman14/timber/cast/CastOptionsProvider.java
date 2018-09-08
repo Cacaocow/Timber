@@ -14,10 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CastOptionsProvider implements OptionsProvider {
-
     @Override
     public CastOptions getCastOptions(Context appContext) {
-
         List<String> buttonActions = new ArrayList<>();
         buttonActions.add(MediaIntentReceiver.ACTION_TOGGLE_PLAYBACK);
         buttonActions.add(MediaIntentReceiver.ACTION_STOP_CASTING);

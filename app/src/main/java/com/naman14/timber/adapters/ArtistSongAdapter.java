@@ -42,7 +42,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ArtistSongAdapter extends BaseSongAdapter<ArtistSongAdapter.ItemHolder> {
-
     private List<Song> arraylist;
     private Activity mContext;
     private long artistID;
@@ -57,20 +56,19 @@ public class ArtistSongAdapter extends BaseSongAdapter<ArtistSongAdapter.ItemHol
 
     @Override
     public ItemHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+        ItemHolder ml;
         if (viewType == 0) {
             View v0 = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.artist_detail_albums_header, null);
-            ItemHolder ml = new ItemHolder(v0);
-            return ml;
+             ml = new ItemHolder(v0);
         } else {
             View v2 = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_artist_song, null);
-            ItemHolder ml = new ItemHolder(v2);
-            return ml;
+            ml = new ItemHolder(v2);
         }
+        return ml;
     }
 
     @Override
     public void onBindViewHolder(ItemHolder itemHolder, int i) {
-
         if (getItemViewType(i) == 0) {
             //nothing
             setUpAlbums(itemHolder.albumsRecyclerView);
@@ -84,15 +82,13 @@ public class ArtistSongAdapter extends BaseSongAdapter<ArtistSongAdapter.ItemHol
                             .cacheInMemory(true).showImageOnLoading(R.drawable.ic_empty_music2).resetViewBeforeLoading(true).build());
             setOnPopupMenuListener(itemHolder, i - 1);
         }
-
     }
 
     @Override
     public void onViewRecycled(ItemHolder itemHolder) {
-
-        if (itemHolder.getItemViewType() == 0)
+        if (itemHolder.getItemViewType() == 0) {
             clearExtraSpacingBetweenCards(itemHolder.albumsRecyclerView);
-
+        }
     }
 
     @Override
@@ -101,11 +97,9 @@ public class ArtistSongAdapter extends BaseSongAdapter<ArtistSongAdapter.ItemHol
     }
 
     private void setOnPopupMenuListener(ItemHolder itemHolder, final int position) {
-
         itemHolder.menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 final PopupMenu menu = new PopupMenu(mContext, v);
                 menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
@@ -151,7 +145,6 @@ public class ArtistSongAdapter extends BaseSongAdapter<ArtistSongAdapter.ItemHol
     }
 
     private void setUpAlbums(RecyclerView albumsRecyclerview) {
-
         albumsRecyclerview.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
         albumsRecyclerview.setHasFixedSize(true);
 
@@ -169,11 +162,10 @@ public class ArtistSongAdapter extends BaseSongAdapter<ArtistSongAdapter.ItemHol
         //to clear any extra spacing between cards
         int spacingInPixelstoClear = -(mContext.getResources().getDimensionPixelSize(R.dimen.spacing_card));
         albumsRecyclerview.addItemDecoration(new SpacesItemDecoration(spacingInPixelstoClear));
-
     }
 
     public long[] getSongIds() {
-        List<Song> actualArraylist = new ArrayList<Song>(arraylist);
+        List<Song> actualArraylist = new ArrayList<>(arraylist);
         //actualArraylist.remove(0);
         long[] ret = new long[actualArraylist.size()];
         for (int i = 0; i < actualArraylist.size(); i++) {
@@ -211,13 +203,12 @@ public class ArtistSongAdapter extends BaseSongAdapter<ArtistSongAdapter.ItemHol
         public ItemHolder(View view) {
             super(view);
 
-            this.albumsRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_album);
+            this.albumsRecyclerView = view.findViewById(R.id.recycler_view_album);
 
-            this.title = (TextView) view.findViewById(R.id.song_title);
-            this.album = (TextView) view.findViewById(R.id.song_album);
-            this.albumArt = (ImageView) view.findViewById(R.id.albumArt);
-            this.menu = (ImageView) view.findViewById(R.id.popup_menu);
-
+            this.title = view.findViewById(R.id.song_title);
+            this.album = view.findViewById(R.id.song_album);
+            this.albumArt = view.findViewById(R.id.albumArt);
+            this.menu = view.findViewById(R.id.popup_menu);
 
             view.setOnClickListener(this);
         }
@@ -233,9 +224,7 @@ public class ArtistSongAdapter extends BaseSongAdapter<ArtistSongAdapter.ItemHol
                             arraylist.get(getAdapterPosition()), true);
                 }
             }, 100);
-
         }
-
     }
 
     public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
@@ -248,15 +237,8 @@ public class ArtistSongAdapter extends BaseSongAdapter<ArtistSongAdapter.ItemHol
         @Override
         public void getItemOffsets(Rect outRect, View view,
                                    RecyclerView parent, RecyclerView.State state) {
-
             //the padding from left
             outRect.left = space;
-
-
         }
     }
 }
-
-
-
-

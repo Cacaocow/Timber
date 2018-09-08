@@ -39,5 +39,4 @@ public class TimelyEvaluator implements TypeEvaluator<float[][]> {
             _cachedPoints = new float[pointsCount][2];
         }
     }
-
 }

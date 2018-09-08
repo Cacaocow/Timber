@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -32,9 +33,7 @@ import java.io.File;
 /**
  * Created by nv95 on 10.11.16.
  */
-
 public class FoldersFragment extends Fragment implements StorageSelectDialog.OnDirSelectListener {
-
     private FolderAdapter mAdapter;
     private RecyclerView recyclerView;
     private FastScroller fastScroller;
@@ -45,7 +44,7 @@ public class FoldersFragment extends Fragment implements StorageSelectDialog.OnD
         View rootView = inflater.inflate(
                 R.layout.fragment_folders, container, false);
 
-        Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
+        Toolbar toolbar = rootView.findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
         ActionBar ab = ((AppCompatActivity) getActivity()).getSupportActionBar();
@@ -53,19 +52,20 @@ public class FoldersFragment extends Fragment implements StorageSelectDialog.OnD
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setTitle(R.string.folders);
 
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview);
-        fastScroller = (FastScroller) rootView.findViewById(R.id.fastscroller);
-        mProgressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
+        recyclerView = rootView.findViewById(R.id.recyclerview);
+        fastScroller = rootView.findViewById(R.id.fastscroller);
+        mProgressBar = rootView.findViewById(R.id.progressBar);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        if (getActivity() != null)
+        if (getActivity() != null) {
             new loadFolders().execute("");
+        }
         return rootView;
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         boolean dark = PreferenceManager.getDefaultSharedPreferences(getActivity()).getBoolean("dark_theme", false);
         if (dark) {

@@ -23,8 +23,6 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.transition.Transition;
-import android.transition.TransitionInflater;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Toast;
@@ -47,10 +45,8 @@ import com.naman14.timber.nowplaying.Timber6;
 import java.util.ArrayList;
 
 public class NavigationUtils {
-
     @TargetApi(21)
     public static void navigateToAlbum(Activity context, long albumID, Pair<View, String> transitionViews) {
-
         FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
         Fragment fragment;
 
@@ -61,12 +57,10 @@ public class NavigationUtils {
         transaction.hide(((AppCompatActivity) context).getSupportFragmentManager().findFragmentById(R.id.fragment_container));
         transaction.add(R.id.fragment_container, fragment);
         transaction.addToBackStack(null).commit();
-
     }
 
     @TargetApi(21)
     public static void navigateToArtist(Activity context, long artistID, Pair<View, String> transitionViews) {
-
         FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
         Fragment fragment;
 
@@ -77,7 +71,6 @@ public class NavigationUtils {
         transaction.hide(((AppCompatActivity) context).getSupportFragmentManager().findFragmentById(R.id.fragment_container));
         transaction.add(R.id.fragment_container, fragment);
         transaction.addToBackStack(null).commit();
-
     }
 
     public static void goToArtist(Context context, long artistId) {
@@ -101,13 +94,11 @@ public class NavigationUtils {
     }
 
     public static void navigateToNowplaying(Activity context, boolean withAnimations) {
-
         final Intent intent = new Intent(context, NowPlayingActivity.class);
         context.startActivity(intent);
     }
 
     public static Intent getNowPlayingIntent(Context context) {
-
         final Intent intent = new Intent(context, MainActivity.class);
         intent.setAction(Constants.NAVIGATE_NOWPLAYING);
         return intent;
@@ -125,7 +116,6 @@ public class NavigationUtils {
         intent.setAction(Constants.NAVIGATE_SEARCH);
         context.startActivity(intent);
     }
-
 
     @TargetApi(21)
     public static void navigateToPlaylistDetail(Activity context, String action, long firstAlbumID, String playlistName, int foregroundcolor, long playlistID, ArrayList<Pair> transitionViews) {
@@ -178,7 +168,6 @@ public class NavigationUtils {
             default:
                 return new Timber1();
         }
-
     }
 
     public static int getIntForCurrentNowplaying(String nowPlaying) {
@@ -198,7 +187,5 @@ public class NavigationUtils {
             default:
                 return 2;
         }
-
     }
-
 }

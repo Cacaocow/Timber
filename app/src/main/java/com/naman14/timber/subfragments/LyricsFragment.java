@@ -30,9 +30,7 @@ import retrofit.client.Response;
 /**
  * Created by christoph on 10.12.16.
  */
-
 public class LyricsFragment extends Fragment {
-
     private String lyrics = null;
     private Toolbar toolbar;
     private View rootView;
@@ -42,7 +40,7 @@ public class LyricsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_lyrics,container,false);
 
-        toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
+        toolbar = rootView.findViewById(R.id.toolbar);
         setupToolbar();
 
         loadLyrics();
@@ -53,9 +51,9 @@ public class LyricsFragment extends Fragment {
     private void loadLyrics() {
 
         final View lyricsView = rootView.findViewById(R.id.lyrics);
-        final TextView poweredbyTextView = (TextView) lyricsView.findViewById(R.id.lyrics_makeitpersonal);
+        final TextView poweredbyTextView = lyricsView.findViewById(R.id.lyrics_makeitpersonal);
         poweredbyTextView.setVisibility(View.GONE);
-        final TextView lyricsTextView = (TextView) lyricsView.findViewById(R.id.lyrics_text);
+        final TextView lyricsTextView =  lyricsView.findViewById(R.id.lyrics_text);
         lyricsTextView.setText(getString(R.string.lyrics_loading));
         String filename = getRealPathFromURI(Uri.parse(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI + "/" + MusicPlayer.getCurrentAudioId()));
         if (filename != null && lyrics == null) {
@@ -97,7 +95,6 @@ public class LyricsFragment extends Fragment {
     }
 
     private void setupToolbar() {
-
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
         final ActionBar ab = ((AppCompatActivity) getActivity()).getSupportActionBar();

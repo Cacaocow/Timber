@@ -13,9 +13,7 @@ import java.util.List;
 /**
  * Created by nv95 on 10.11.16.
  */
-
 public class FolderLoader {
-
     private static final String[] SUPPORTED_EXT = new String[] {
             "mp3",
             "mp4",
@@ -46,7 +44,6 @@ public class FolderLoader {
             Collections.sort(files, new DirFirstComparator());
             list.addAll(files);
         }
-
         return list;
     }
 

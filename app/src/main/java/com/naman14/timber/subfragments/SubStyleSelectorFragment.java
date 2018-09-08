@@ -37,7 +37,6 @@ import com.naman14.timber.utils.NavigationUtils;
 import com.naman14.timber.utils.PreferencesUtility;
 
 public class SubStyleSelectorFragment extends Fragment {
-
     private static final String ARG_PAGE_NUMBER = "pageNumber";
     private static final String WHAT = "what";
     private SharedPreferences.Editor editor;
@@ -56,16 +55,16 @@ public class SubStyleSelectorFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_style_selector_pager, container, false);
 
-        TextView styleName = (TextView) rootView.findViewById(R.id.style_name);
+        TextView styleName = rootView.findViewById(R.id.style_name);
         styleName.setText(String.valueOf(getArguments().getInt(ARG_PAGE_NUMBER) + 1));
         preferences = getActivity().getSharedPreferences(Constants.FRAGMENT_ID, Context.MODE_PRIVATE);
 
-        styleImage = (ImageView) rootView.findViewById(R.id.style_image);
-        imgLock = (ImageView) rootView.findViewById(R.id.img_lock);
+        styleImage = rootView.findViewById(R.id.style_image);
+        imgLock = rootView.findViewById(R.id.img_lock);
 
         styleImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,7 +101,7 @@ public class SubStyleSelectorFragment extends Fragment {
                 break;
         }
 
-        currentStyle = (LinearLayout) rootView.findViewById(R.id.currentStyle);
+        currentStyle = rootView.findViewById(R.id.currentStyle);
         foreground = rootView.findViewById(R.id.foreground);
 
         setCurrentStyle();
@@ -165,11 +164,9 @@ public class SubStyleSelectorFragment extends Fragment {
             currentStyle.setVisibility(View.GONE);
             foreground.setVisibility(View.GONE);
         }
-
     }
 
     private void setPreferences() {
-
         if (getArguments().getString(WHAT).equals(Constants.SETTINGS_STYLE_SELECTOR_NOWPLAYING)) {
             editor = getActivity().getSharedPreferences(Constants.FRAGMENT_ID, Context.MODE_PRIVATE).edit();
             editor.putString(Constants.NOWPLAYING_FRAGMENT_ID, getStyleForPageNumber());
@@ -199,6 +196,4 @@ public class SubStyleSelectorFragment extends Fragment {
                 return Constants.TIMBER3;
         }
     }
-
-
 }

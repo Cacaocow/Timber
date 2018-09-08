@@ -22,7 +22,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,8 +51,6 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import net.steamcrafted.materialiconlib.MaterialIconView;
 
 public class QuickControlsFragment extends Fragment implements MusicStateListener {
-
-
     public static View topContainer;
     private ProgressBar mProgress;
     private SeekBar mSeekBar;
@@ -69,10 +66,8 @@ public class QuickControlsFragment extends Fragment implements MusicStateListene
     private boolean fragmentPaused = false;
 
     public Runnable mUpdateProgress = new Runnable() {
-
         @Override
         public void run() {
-
             long position = MusicPlayer.position();
             mProgress.setProgress((int) position);
             mSeekBar.setProgress((int) position);
@@ -85,7 +80,6 @@ public class QuickControlsFragment extends Fragment implements MusicStateListene
                     mProgress.postDelayed(mUpdateProgress, delay);
                 }
             } else mProgress.removeCallbacks(this);
-
         }
     };
 
@@ -107,7 +101,6 @@ public class QuickControlsFragment extends Fragment implements MusicStateListene
                     MusicPlayer.playOrPause();
                 }
             }, 200);
-
         }
     };
 
@@ -129,7 +122,6 @@ public class QuickControlsFragment extends Fragment implements MusicStateListene
                     MusicPlayer.playOrPause();
                 }
             }, 200);
-
         }
     };
 
@@ -139,22 +131,22 @@ public class QuickControlsFragment extends Fragment implements MusicStateListene
         View rootView = inflater.inflate(R.layout.fragment_playback_controls, container, false);
         this.rootView = rootView;
 
-        mPlayPause = (PlayPauseButton) rootView.findViewById(R.id.play_pause);
-        mPlayPauseExpanded = (PlayPauseButton) rootView.findViewById(R.id.playpause);
+        mPlayPause = rootView.findViewById(R.id.play_pause);
+        mPlayPauseExpanded = rootView.findViewById(R.id.playpause);
         playPauseWrapper = rootView.findViewById(R.id.play_pause_wrapper);
         playPauseWrapperExpanded = rootView.findViewById(R.id.playpausewrapper);
         playPauseWrapper.setOnClickListener(mPlayPauseListener);
         playPauseWrapperExpanded.setOnClickListener(mPlayPauseExpandedListener);
-        mProgress = (ProgressBar) rootView.findViewById(R.id.song_progress_normal);
-        mSeekBar = (SeekBar) rootView.findViewById(R.id.song_progress);
-        mTitle = (TextView) rootView.findViewById(R.id.title);
-        mArtist = (TextView) rootView.findViewById(R.id.artist);
-        mTitleExpanded = (TextView) rootView.findViewById(R.id.song_title);
-        mArtistExpanded = (TextView) rootView.findViewById(R.id.song_artist);
-        mAlbumArt = (ImageView) rootView.findViewById(R.id.album_art_nowplayingcard);
-        mBlurredArt = (ImageView) rootView.findViewById(R.id.blurredAlbumart);
-        next = (MaterialIconView) rootView.findViewById(R.id.next);
-        previous = (MaterialIconView) rootView.findViewById(R.id.previous);
+        mProgress = rootView.findViewById(R.id.song_progress_normal);
+        mSeekBar = rootView.findViewById(R.id.song_progress);
+        mTitle = rootView.findViewById(R.id.title);
+        mArtist = rootView.findViewById(R.id.artist);
+        mTitleExpanded = rootView.findViewById(R.id.song_title);
+        mArtistExpanded = rootView.findViewById(R.id.song_artist);
+        mAlbumArt = rootView.findViewById(R.id.album_art_nowplayingcard);
+        mBlurredArt = rootView.findViewById(R.id.blurredAlbumart);
+        next = rootView.findViewById(R.id.next);
+        previous = rootView.findViewById(R.id.previous);
         topContainer = rootView.findViewById(R.id.topContainer);
 
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mProgress.getLayoutParams();
@@ -210,7 +202,6 @@ public class QuickControlsFragment extends Fragment implements MusicStateListene
             }
         });
 
-
         ((BaseActivity) getActivity()).setMusicStateListenerListener(this);
 
         if (PreferencesUtility.getInstance(getActivity()).isGesturesEnabled()) {
@@ -221,7 +212,6 @@ public class QuickControlsFragment extends Fragment implements MusicStateListene
                 }
             }.attach(rootView.findViewById(R.id.root_view));
         }
-
 
         return rootView;
     }
@@ -245,7 +235,6 @@ public class QuickControlsFragment extends Fragment implements MusicStateListene
                             .build(), new ImageLoadingListener() {
                         @Override
                         public void onLoadingStarted(String imageUri, View view) {
-
                         }
 
                         @Override
@@ -319,11 +308,9 @@ public class QuickControlsFragment extends Fragment implements MusicStateListene
     }
 
     public void restartLoader() {
-
     }
 
     public void onPlaylistChanged() {
-
     }
 
     public void onMetaChanged() {
@@ -332,7 +319,6 @@ public class QuickControlsFragment extends Fragment implements MusicStateListene
     }
 
     private class setBlurredAlbumArt extends AsyncTask<Bitmap, Void, Drawable> {
-
         @Override
         protected Drawable doInBackground(Bitmap... loadedImage) {
             Drawable drawable = null;
@@ -366,6 +352,4 @@ public class QuickControlsFragment extends Fragment implements MusicStateListene
         protected void onPreExecute() {
         }
     }
-
-
 }

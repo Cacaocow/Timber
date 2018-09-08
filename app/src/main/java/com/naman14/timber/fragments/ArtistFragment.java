@@ -17,6 +17,7 @@ package com.naman14.timber.fragments;
 import android.graphics.Rect;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -40,7 +41,6 @@ import com.naman14.timber.widgets.FastScroller;
 import java.util.List;
 
 public class ArtistFragment extends Fragment {
-
     private ArtistAdapter mAdapter;
     private BaseRecyclerView recyclerView;
     private GridLayoutManager layoutManager;
@@ -56,7 +56,7 @@ public class ArtistFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(
                 R.layout.fragment_recyclerview, container, false);
 
@@ -67,8 +67,9 @@ public class ArtistFragment extends Fragment {
 
         setLayoutManager();
 
-        if (getActivity() != null)
+        if (getActivity() != null) {
             new loadArtists().execute("");
+        }
         return rootView;
     }
 
@@ -163,7 +164,6 @@ public class ArtistFragment extends Fragment {
     }
 
     private class loadArtists extends AsyncTask<String, Void, String> {
-
         @Override
         protected String doInBackground(String... params) {
             if (getActivity() != null)
@@ -201,9 +201,6 @@ public class ArtistFragment extends Fragment {
             outRect.top = space;
             outRect.right = space;
             outRect.bottom = space;
-
         }
     }
-
-
 }

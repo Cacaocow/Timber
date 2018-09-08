@@ -19,7 +19,6 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class LastfmArtist {
-
     private static final String NAME = "name";
     private static final String IMAGE = "image";
     private static final String SIMILAR = "similar";
@@ -41,9 +40,7 @@ public class LastfmArtist {
     @SerializedName(BIO)
     public ArtistBio mArtistBio;
 
-
     public class SimilarArtist {
-
         public static final String ARTIST = "artist";
 
         @SerializedName(ARTIST)
@@ -51,12 +48,9 @@ public class LastfmArtist {
     }
 
     public class ArtistTag {
-
         public static final String TAG = "tag";
 
         @SerializedName(TAG)
         public List<com.naman14.timber.lastfmapi.models.ArtistTag> mTags;
     }
-
-
 }

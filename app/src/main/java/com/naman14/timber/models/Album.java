@@ -39,6 +39,4 @@ public class Album {
         this.songCount = _songCount;
         this.year = _year;
     }
-
-
 }

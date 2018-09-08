@@ -48,7 +48,6 @@ import java.util.List;
 import java.util.Random;
 
 public class PlaylistPagerFragment extends Fragment {
-
     private static final String ARG_PAGE_NUMBER = "pageNumber";
     private int[] foregroundColors = {R.color.pink_transparent, R.color.green_transparent, R.color.blue_transparent, R.color.red_transparent, R.color.purple_transparent};
     private int pageNumber, songCountInt, totalRuntime;
@@ -80,12 +79,12 @@ public class PlaylistPagerFragment extends Fragment {
         pageNumber = getArguments().getInt(ARG_PAGE_NUMBER);
         playlist = playlists.get(pageNumber);
 
-        playlistame = (TextView) rootView.findViewById(R.id.name);
-        playlistnumber = (TextView) rootView.findViewById(R.id.number);
-        songcount = (TextView) rootView.findViewById(R.id.songcount);
-        runtime = (TextView) rootView.findViewById(R.id.runtime);
-        playlisttype = (TextView) rootView.findViewById(R.id.playlisttype);
-        playlistImage = (ImageView) rootView.findViewById(R.id.playlist_image);
+        playlistame = rootView.findViewById(R.id.name);
+        playlistnumber = rootView.findViewById(R.id.number);
+        songcount = rootView.findViewById(R.id.songcount);
+        runtime = rootView.findViewById(R.id.runtime);
+        playlisttype = rootView.findViewById(R.id.playlisttype);
+        playlistImage = rootView.findViewById(R.id.playlist_image);
         foreground = rootView.findViewById(R.id.foreground);
 
         playlistImage.setOnClickListener(new View.OnClickListener() {
@@ -103,7 +102,6 @@ public class PlaylistPagerFragment extends Fragment {
         setUpPlaylistDetails();
         return rootView;
     }
-
 
     @Override
     public void onViewCreated(View view, Bundle savedinstancestate) {
@@ -133,7 +131,6 @@ public class PlaylistPagerFragment extends Fragment {
             if (pageNumber <= 2)
                 playlisttype.setVisibility(View.VISIBLE);
         }
-
     }
 
     private String getPlaylistType() {
@@ -153,7 +150,6 @@ public class PlaylistPagerFragment extends Fragment {
 
 
     private class loadPlaylistImage extends AsyncTask<String, Void, String> {
-
         @Override
         protected String doInBackground(String... params) {
             if (getActivity() != null) {
@@ -216,7 +212,6 @@ public class PlaylistPagerFragment extends Fragment {
                     } else return "nosongs";
                 }
             } else return "context is null";
-
         }
 
         @Override
@@ -238,7 +233,4 @@ public class PlaylistPagerFragment extends Fragment {
         protected void onPreExecute() {
         }
     }
-
-
 }
-

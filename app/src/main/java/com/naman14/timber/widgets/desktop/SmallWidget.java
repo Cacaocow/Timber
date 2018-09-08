@@ -17,9 +17,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 /**
  * Created by nv95 on 02.11.16.
  */
-
 public class SmallWidget extends BaseWidget {
-
     @Override
     int getLayoutRes() {
         return R.layout.widget_small;

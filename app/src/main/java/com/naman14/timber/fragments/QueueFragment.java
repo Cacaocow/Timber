@@ -11,17 +11,16 @@
  * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
  */
-
 package com.naman14.timber.fragments;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -40,7 +39,6 @@ import com.naman14.timber.widgets.BaseRecyclerView;
 import com.naman14.timber.widgets.DragSortRecycler;
 
 public class QueueFragment extends Fragment implements MusicStateListener {
-
     private PlayingQueueAdapter mAdapter;
     private BaseRecyclerView recyclerView;
 
@@ -69,7 +67,7 @@ public class QueueFragment extends Fragment implements MusicStateListener {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (PreferenceManager.getDefaultSharedPreferences(getActivity()).getBoolean("dark_theme", false)) {
             ATE.apply(this, "dark_theme");
@@ -79,11 +77,9 @@ public class QueueFragment extends Fragment implements MusicStateListener {
     }
 
     public void restartLoader() {
-
     }
 
     public void onPlaylistChanged() {
-
     }
 
     public void onMetaChanged() {
@@ -92,7 +88,6 @@ public class QueueFragment extends Fragment implements MusicStateListener {
     }
 
     private class loadQueueSongs extends AsyncTask<String, Void, String> {
-
         @Override
         protected String doInBackground(String... params) {
             mAdapter = new PlayingQueueAdapter(getActivity(), QueueLoader.getQueueSongs(getActivity()));
@@ -122,13 +117,10 @@ public class QueueFragment extends Fragment implements MusicStateListener {
             recyclerView.addOnScrollListener(dragSortRecycler.getScrollListener());
 
             recyclerView.getLayoutManager().scrollToPosition(mAdapter.currentlyPlayingPosition);
-
         }
 
         @Override
         protected void onPreExecute() {
         }
     }
-
 }
-

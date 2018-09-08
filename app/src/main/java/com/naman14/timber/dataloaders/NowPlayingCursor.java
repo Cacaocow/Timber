@@ -28,27 +28,16 @@ import java.util.Arrays;
 
 import static com.naman14.timber.MusicPlayer.mService;
 
-
 public class NowPlayingCursor extends AbstractCursor {
-
     private static final String[] PROJECTION = new String[]{
-
             BaseColumns._ID,
-
             AudioColumns.TITLE,
-
             AudioColumns.ARTIST,
-
             AudioColumns.ALBUM_ID,
-
             AudioColumns.ALBUM,
-
             AudioColumns.DURATION,
-
             AudioColumns.TRACK,
-
             AudioColumns.ARTIST_ID,
-
             AudioColumns.TRACK,
     };
 
@@ -64,18 +53,15 @@ public class NowPlayingCursor extends AbstractCursor {
 
     private Cursor mQueueCursor;
 
-
     public NowPlayingCursor(final Context context) {
         mContext = context;
         makeNowPlayingCursor();
     }
 
-
     @Override
     public int getCount() {
         return mSize;
     }
-
 
     @Override
     public boolean onMove(final int oldPosition, final int newPosition) {
@@ -104,12 +90,10 @@ public class NowPlayingCursor extends AbstractCursor {
         }
     }
 
-
     @Override
     public short getShort(final int column) {
         return mQueueCursor.getShort(column);
     }
-
 
     @Override
     public int getInt(final int column) {
@@ -121,7 +105,6 @@ public class NowPlayingCursor extends AbstractCursor {
         }
     }
 
-
     @Override
     public long getLong(final int column) {
         try {
@@ -131,7 +114,6 @@ public class NowPlayingCursor extends AbstractCursor {
             return 0;
         }
     }
-
 
     @Override
     public float getFloat(final int column) {
@@ -161,7 +143,6 @@ public class NowPlayingCursor extends AbstractCursor {
         return PROJECTION;
     }
 
-
     @SuppressWarnings("deprecation")
     @Override
     public void deactivate() {
@@ -184,16 +165,15 @@ public class NowPlayingCursor extends AbstractCursor {
                 mQueueCursor.close();
                 mQueueCursor = null;
             }
-        } catch (final Exception close) {
+        } catch (final Exception ignore) {
         }
         super.close();
     }
 
-
     private void makeNowPlayingCursor() {
         mQueueCursor = null;
         mNowPlaying = MusicPlayer.getQueue();
-        Log.d("lol1", mNowPlaying.toString() + "   " + mNowPlaying.length);
+        Log.d("lol1", mNowPlaying + "   " + mNowPlaying.length);
         mSize = mNowPlaying.length;
         if (mSize == 0) {
             return;
@@ -242,11 +222,9 @@ public class NowPlayingCursor extends AbstractCursor {
             mSize = mNowPlaying.length;
             if (mSize == 0) {
                 mCursorIndexes = null;
-                return;
             }
         }
     }
-
 
     public boolean removeItem(final int which) {
         try {

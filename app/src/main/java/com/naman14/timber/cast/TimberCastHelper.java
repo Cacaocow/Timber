@@ -1,11 +1,9 @@
 package com.naman14.timber.cast;
 
 import android.net.Uri;
-import android.util.Log;
 
 import com.google.android.gms.cast.MediaInfo;
 import com.google.android.gms.cast.MediaMetadata;
-import com.google.android.gms.cast.TextTrackStyle;
 import com.google.android.gms.cast.framework.CastSession;
 import com.google.android.gms.cast.framework.media.RemoteMediaClient;
 import com.google.android.gms.common.images.WebImage;
@@ -21,9 +19,7 @@ import java.net.URL;
  */
 
 public class TimberCastHelper  {
-
     public static void startCasting(CastSession castSession, Song song) {
-
         String ipAddress = TimberUtils.getIPAddress(true);
         URL baseUrl;
         try {

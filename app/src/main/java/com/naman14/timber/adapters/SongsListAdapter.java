@@ -18,7 +18,6 @@ import android.graphics.Color;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,7 +35,6 @@ import com.naman14.timber.dialogs.AddPlaylistDialog;
 import com.naman14.timber.models.Song;
 import com.naman14.timber.utils.Helpers;
 import com.naman14.timber.utils.NavigationUtils;
-import com.naman14.timber.utils.PreferencesUtility;
 import com.naman14.timber.utils.TimberUtils;
 import com.naman14.timber.widgets.BubbleTextGetter;
 import com.naman14.timber.widgets.MusicVisualizer;
@@ -46,7 +44,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.util.List;
 
 public class SongsListAdapter extends BaseSongAdapter<SongsListAdapter.ItemHolder> implements BubbleTextGetter {
-
     public int currentlyPlayingPosition;
     private List<Song> arraylist;
     private AppCompatActivity mContext;
@@ -68,15 +65,15 @@ public class SongsListAdapter extends BaseSongAdapter<SongsListAdapter.ItemHolde
 
     @Override
     public ItemHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        ItemHolder ml;
         if (isPlaylist) {
             View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_song_playlist, null);
-            ItemHolder ml = new ItemHolder(v);
-            return ml;
+             ml = new ItemHolder(v);
         } else {
             View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_song, null);
-            ItemHolder ml = new ItemHolder(v);
-            return ml;
+            ml = new ItemHolder(v);
         }
+        return ml;
     }
 
     @Override
@@ -108,7 +105,6 @@ public class SongsListAdapter extends BaseSongAdapter<SongsListAdapter.ItemHolde
             }
         }
 
-
         if (animate && isPlaylist) {
             if (TimberUtils.isLollipop())
                 setAnimation(itemHolder.itemView, i);
@@ -118,9 +114,7 @@ public class SongsListAdapter extends BaseSongAdapter<SongsListAdapter.ItemHolde
             }
         }
 
-
         setOnPopupMenuListener(itemHolder, i);
-
     }
 
     public void setPlaylistId(long playlistId) {
@@ -137,7 +131,6 @@ public class SongsListAdapter extends BaseSongAdapter<SongsListAdapter.ItemHolde
         itemHolder.popupMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 final PopupMenu menu = new PopupMenu(mContext, v);
 
                 menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -232,11 +225,11 @@ public class SongsListAdapter extends BaseSongAdapter<SongsListAdapter.ItemHolde
 
         public ItemHolder(View view) {
             super(view);
-            this.title = (TextView) view.findViewById(R.id.song_title);
-            this.artist = (TextView) view.findViewById(R.id.song_artist);
-            this.albumArt = (ImageView) view.findViewById(R.id.albumArt);
-            this.popupMenu = (ImageView) view.findViewById(R.id.popup_menu);
-            visualizer = (MusicVisualizer) view.findViewById(R.id.visualizer);
+            this.title = view.findViewById(R.id.song_title);
+            this.artist = view.findViewById(R.id.song_artist);
+            this.albumArt = view.findViewById(R.id.albumArt);
+            this.popupMenu = view.findViewById(R.id.popup_menu);
+            visualizer = view.findViewById(R.id.visualizer);
             view.setOnClickListener(this);
         }
 
@@ -259,10 +252,7 @@ public class SongsListAdapter extends BaseSongAdapter<SongsListAdapter.ItemHolde
                     }, 50);
                 }
             }, 100);
-
-
         }
-
     }
 
     public Song getSongAt(int i) {
@@ -279,5 +269,3 @@ public class SongsListAdapter extends BaseSongAdapter<SongsListAdapter.ItemHolde
         updateDataSet(arraylist);
     }
 }
-
-

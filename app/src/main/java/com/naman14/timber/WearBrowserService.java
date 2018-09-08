@@ -45,7 +45,6 @@ import java.util.List;
 
 @TargetApi(21)
 public class WearBrowserService extends MediaBrowserService {
-
     public static final String MEDIA_ID_ROOT = "__ROOT__";
     public static final int TYPE_ARTIST = 0;
     public static final int TYPE_ALBUM = 1;
@@ -104,7 +103,6 @@ public class WearBrowserService extends MediaBrowserService {
     }
 
     private final class MediaSessionCallback extends MediaSession.Callback {
-
         @Override
         public void onPlay() {
             setSessionActive();
@@ -112,7 +110,6 @@ public class WearBrowserService extends MediaBrowserService {
 
         @Override
         public void onSeekTo(long position) {
-
         }
 
         @Override
@@ -124,7 +121,6 @@ public class WearBrowserService extends MediaBrowserService {
 
         @Override
         public void onPause() {
-
         }
 
         @Override
@@ -134,22 +130,18 @@ public class WearBrowserService extends MediaBrowserService {
 
         @Override
         public void onSkipToNext() {
-
         }
 
         @Override
         public void onSkipToPrevious() {
-
         }
 
         @Override
         public void onFastForward() {
-
         }
 
         @Override
         public void onRewind() {
-
         }
 
         @Override
@@ -224,9 +216,7 @@ public class WearBrowserService extends MediaBrowserService {
 
     }
 
-
     private void loadChildren(final String parentId, final Result<List<MediaBrowser.MediaItem>> result) {
-
         final List<MediaBrowser.MediaItem> mediaItems = new ArrayList<>();
 
         new AsyncTask<Void, Void, Void>() {
@@ -306,7 +296,6 @@ public class WearBrowserService extends MediaBrowserService {
                 result.sendResult(mediaItems);
             }
         }.execute();
-
     }
 
     private void fillMediaItems(List<MediaBrowser.MediaItem> mediaItems, String mediaId, String title, Uri icon, String subTitle, int playableOrBrowsable) {
@@ -319,5 +308,4 @@ public class WearBrowserService extends MediaBrowserService {
                         .build(), playableOrBrowsable
         ));
     }
-
 }

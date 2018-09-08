@@ -34,7 +34,6 @@ public class PlaylistLoader {
     private static Cursor mCursor;
 
     public static List<Playlist> getPlaylists(Context context, boolean defaultIncluded) {
-
         mPlaylistList = new ArrayList<>();
 
         if (defaultIncluded)
@@ -44,15 +43,10 @@ public class PlaylistLoader {
 
         if (mCursor != null && mCursor.moveToFirst()) {
             do {
-
                 final long id = mCursor.getLong(0);
-
                 final String name = mCursor.getString(1);
-
                 final int songCount = TimberUtils.getSongCountForPlaylist(context, id);
-
                 final Playlist playlist = new Playlist(id, name, songCount);
-
                 mPlaylistList.add(playlist);
             } while (mCursor.moveToNext());
         }
@@ -81,7 +75,6 @@ public class PlaylistLoader {
                 resources.getString(TimberUtils.PlaylistType.TopTracks.mTitleId), -1);
         mPlaylistList.add(topTracks);
     }
-
 
     public static final Cursor makePlaylistCursor(final Context context) {
         return context.getContentResolver().query(MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI,

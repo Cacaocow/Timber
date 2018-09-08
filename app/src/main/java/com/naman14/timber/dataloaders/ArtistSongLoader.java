@@ -26,10 +26,9 @@ import com.naman14.timber.utils.PreferencesUtility;
 import java.util.ArrayList;
 
 public class ArtistSongLoader {
-
     public static ArrayList<Song> getSongsForArtist(Context context, long artistID) {
         Cursor cursor = makeArtistSongCursor(context, artistID);
-        ArrayList songsList = new ArrayList();
+        ArrayList<Song> songsList = new ArrayList<>();
         if ((cursor != null) && (cursor.moveToFirst()))
             do {
                 long id = cursor.getLong(0);
@@ -49,7 +48,6 @@ public class ArtistSongLoader {
         return songsList;
     }
 
-
     public static Cursor makeArtistSongCursor(Context context, long artistID) {
         ContentResolver contentResolver = context.getContentResolver();
         final String artistSongSortOrder = PreferencesUtility.getInstance(context).getArtistSongSortOrder();
@@ -57,5 +55,4 @@ public class ArtistSongLoader {
         String string = "is_music=1 AND title != '' AND artist_id=" + artistID;
         return contentResolver.query(uri, new String[]{"_id", "title", "artist", "album", "duration", "track", "album_id"}, string, null, artistSongSortOrder);
     }
-
 }

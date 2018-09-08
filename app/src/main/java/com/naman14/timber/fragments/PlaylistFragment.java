@@ -51,7 +51,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlaylistFragment extends Fragment {
-
     private int playlistcount;
     private FragmentStatePagerAdapter adapter;
     private MultiViewPager pager;
@@ -82,10 +81,9 @@ public class PlaylistFragment extends Fragment {
         View rootView = inflater.inflate(
                 R.layout.fragment_playlist, container, false);
 
-        Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
-        pager = (MultiViewPager) rootView.findViewById(R.id.playlistpager);
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview);
-
+        Toolbar toolbar = rootView.findViewById(R.id.toolbar);
+        pager = rootView.findViewById(R.id.playlistpager);
+        recyclerView = rootView.findViewById(R.id.recyclerview);
 
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
@@ -104,16 +102,13 @@ public class PlaylistFragment extends Fragment {
         }
 
         return rootView;
-
     }
-
 
     private void initPager() {
         pager.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.GONE);
         recyclerView.setAdapter(null);
         adapter = new FragmentStatePagerAdapter(getChildFragmentManager()) {
-
             @Override
             public int getCount() {
                 return playlistcount;
@@ -123,7 +118,6 @@ public class PlaylistFragment extends Fragment {
             public Fragment getItem(int position) {
                 return PlaylistPagerFragment.newInstance(position);
             }
-
         };
         pager.setAdapter(adapter);
         pager.setOffscreenPageLimit(3);
@@ -141,7 +135,6 @@ public class PlaylistFragment extends Fragment {
             setItemDecoration();
         }
     }
-
 
     private void setLayoutManager() {
         if (isGrid) {
@@ -181,16 +174,12 @@ public class PlaylistFragment extends Fragment {
         @Override
         public void getItemOffsets(Rect outRect, View view,
                                    RecyclerView parent, RecyclerView.State state) {
-
-
             outRect.left = space;
             outRect.top = space;
             outRect.right = space;
             outRect.bottom = space;
-
         }
     }
-
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -285,7 +274,6 @@ public class PlaylistFragment extends Fragment {
                     }
                 }, 200);
             }
-
         } else {
             mAdapter.updateDataSet(playlists);
         }
@@ -310,8 +298,6 @@ public class PlaylistFragment extends Fragment {
             if (resultCode == Activity.RESULT_OK) {
                 reloadPlaylists();
             }
-
         }
     }
 }
-

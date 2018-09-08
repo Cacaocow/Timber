@@ -35,7 +35,6 @@ import java.util.Random;
  * Created by naman on 31/10/16.
  */
 public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ItemHolder> {
-
     private List<Playlist> arraylist;
     private Activity mContext;
     private boolean isGrid;
@@ -59,15 +58,15 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ItemHo
 
     @Override
     public ItemHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        ItemHolder ml;
         if (isGrid) {
             View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_album_grid, null);
-            ItemHolder ml = new ItemHolder(v);
-            return ml;
+            ml = new ItemHolder(v);
         } else {
             View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_album_list, null);
-            ItemHolder ml = new ItemHolder(v);
-            return ml;
+            ml = new ItemHolder(v);
         }
+        return ml;
     }
 
     @Override
@@ -106,12 +105,9 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ItemHo
                                             itemHolder.artist.setTextColor(textColor);
                                         }
                                     }
-
-
                                 }
                             });
                         }
-
                     }
 
                     @Override
@@ -128,9 +124,9 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ItemHo
                 });
         itemHolder.artist.setText(" " + String.valueOf(songCountInt) + " " + mContext.getString(R.string.songs) + " - " + TimberUtils.makeShortTimeString(mContext,totalRuntime));
 
-        if (TimberUtils.isLollipop())
+        if (TimberUtils.isLollipop()) {
             itemHolder.albumArt.setTransitionName("transition_album_art" + i);
-
+        }
     }
 
     private String getAlbumArtUri(int position, long id) {
@@ -188,7 +184,6 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ItemHo
                             firstAlbumID = playlistsongs.get(0).albumId;
                             return TimberUtils.getAlbumArtUri(firstAlbumID).toString();
                         } else return "nosongs";
-
                 }
             } else {
                 List<Song> playlistsongs = PlaylistSongLoader.getSongsInPlaylist(mContext, id);
@@ -225,9 +220,9 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ItemHo
 
         public ItemHolder(View view) {
             super(view);
-            this.title = (TextView) view.findViewById(R.id.album_title);
-            this.artist = (TextView) view.findViewById(R.id.album_artist);
-            this.albumArt = (ImageView) view.findViewById(R.id.album_art);
+            this.title = view.findViewById(R.id.album_title);
+            this.artist = view.findViewById(R.id.album_artist);
+            this.albumArt = view.findViewById(R.id.album_art);
             this.footer = view.findViewById(R.id.footer);
             view.setOnClickListener(this);
         }
@@ -235,9 +230,7 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ItemHo
         @Override
         public void onClick(View v) {
             NavigationUtils.navigateToPlaylistDetail(mContext, getPlaylistType(getAdapterPosition()), (long) albumArt.getTag(), String.valueOf(title.getText()), foregroundColor, arraylist.get(getAdapterPosition()).id, null);
-
         }
-
     }
 
     private String getPlaylistType(int position) {
@@ -254,8 +247,6 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ItemHo
             }
         } else return Constants.NAVIGATE_PLAYLIST_USERCREATED;
     }
-
-
 }
 
 

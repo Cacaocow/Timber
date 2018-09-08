@@ -17,7 +17,6 @@ package com.naman14.timber.lastfmapi.models;
 import com.google.gson.annotations.SerializedName;
 
 public class ArtistQuery {
-
     private static final String ARTIST_NAME = "artist";
 
     @SerializedName(ARTIST_NAME)
@@ -26,6 +25,4 @@ public class ArtistQuery {
     public ArtistQuery(String artist) {
         this.mArtist = artist;
     }
-
-
 }

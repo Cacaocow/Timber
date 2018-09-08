@@ -15,6 +15,7 @@
 package com.naman14.timber.fragments;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -32,7 +33,6 @@ import com.naman14.timber.widgets.DividerItemDecoration;
 import java.util.ArrayList;
 
 public class ArtistMusicFragment extends Fragment {
-
     public static RecyclerView songsRecyclerview;
     private long artistID = -1;
     private ArtistSongAdapter mSongAdapter;
@@ -54,18 +54,16 @@ public class ArtistMusicFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(
                 R.layout.fragment_artist_music, container, false);
 
-        songsRecyclerview = (RecyclerView) rootView.findViewById(R.id.recycler_view_songs);
+        songsRecyclerview = rootView.findViewById(R.id.recycler_view_songs);
 
         setUpSongs();
 
-
         return rootView;
     }
-
 
     private void setUpSongs() {
         songsRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -81,6 +79,4 @@ public class ArtistMusicFragment extends Fragment {
         songsRecyclerview.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
         songsRecyclerview.setAdapter(mSongAdapter);
     }
-
-
 }

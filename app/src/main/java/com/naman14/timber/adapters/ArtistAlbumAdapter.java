@@ -33,26 +33,22 @@ import com.naman14.timber.utils.TimberUtils;
 import java.util.List;
 
 public class ArtistAlbumAdapter extends RecyclerView.Adapter<ArtistAlbumAdapter.ItemHolder> {
-
     private List<Album> arraylist;
     private Activity mContext;
 
     public ArtistAlbumAdapter(Activity context, List<Album> arraylist) {
         this.arraylist = arraylist;
         this.mContext = context;
-
     }
 
     @Override
     public ItemHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_artist_album, null);
-        ItemHolder ml = new ItemHolder(v);
-        return ml;
+        return new ItemHolder(v);
     }
 
     @Override
     public void onBindViewHolder(ItemHolder itemHolder, int i) {
-
         Album localItem = arraylist.get(i);
 
         itemHolder.title.setText(localItem.title);
@@ -61,16 +57,15 @@ public class ArtistAlbumAdapter extends RecyclerView.Adapter<ArtistAlbumAdapter.
 
         ImageUtils.loadAlbumArtIntoView(localItem.id, itemHolder.albumArt);
 
-        if (TimberUtils.isLollipop())
+        if (TimberUtils.isLollipop()) {
             itemHolder.albumArt.setTransitionName("transition_album_art" + i);
-
+        }
     }
 
     @Override
     public int getItemCount() {
         return (null != arraylist ? arraylist.size() : 0);
     }
-
 
     public class ItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         protected TextView title, details;
@@ -79,10 +74,10 @@ public class ArtistAlbumAdapter extends RecyclerView.Adapter<ArtistAlbumAdapter.
 
         public ItemHolder(View view) {
             super(view);
-            this.rootView = (CardView) view.findViewById(R.id.root_view);
-            this.title = (TextView) view.findViewById(R.id.album_title);
-            this.details = (TextView) view.findViewById(R.id.album_details);
-            this.albumArt = (ImageView) view.findViewById(R.id.album_art);
+            this.rootView = view.findViewById(R.id.root_view);
+            this.title = view.findViewById(R.id.album_title);
+            this.details = view.findViewById(R.id.album_details);
+            this.albumArt = view.findViewById(R.id.album_art);
             view.setOnClickListener(this);
         }
 
@@ -91,7 +86,6 @@ public class ArtistAlbumAdapter extends RecyclerView.Adapter<ArtistAlbumAdapter.
             NavigationUtils.navigateToAlbum(mContext, arraylist.get(getAdapterPosition()).id,
                     new Pair<View, String>(albumArt, "transition_album_art" + getAdapterPosition()));
         }
-
     }
 }
 

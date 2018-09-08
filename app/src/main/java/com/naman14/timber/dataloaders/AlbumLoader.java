@@ -25,8 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AlbumLoader {
-
-
     public static Album getAlbum(Cursor cursor) {
         Album album = new Album();
         if (cursor != null) {
@@ -37,7 +35,6 @@ public class AlbumLoader {
             cursor.close();
         return album;
     }
-
 
     public static List<Album> getAlbumsForCursor(Cursor cursor) {
         ArrayList arrayList = new ArrayList();
@@ -67,11 +64,8 @@ public class AlbumLoader {
         return result.size() < limit ? result : result.subList(0, limit);
     }
 
-
     public static Cursor makeAlbumCursor(Context context, String selection, String[] paramArrayOfString) {
         final String albumSortOrder = PreferencesUtility.getInstance(context).getAlbumSortOrder();
-        Cursor cursor = context.getContentResolver().query(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI, new String[]{"_id", "album", "artist", "artist_id", "numsongs", "minyear"}, selection, paramArrayOfString, albumSortOrder);
-
-        return cursor;
+        return context.getContentResolver().query(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI, new String[]{"_id", "album", "artist", "artist_id", "numsongs", "minyear"}, selection, paramArrayOfString, albumSortOrder);
     }
 }

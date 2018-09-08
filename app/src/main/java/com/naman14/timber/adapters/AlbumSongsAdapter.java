@@ -36,7 +36,6 @@ import com.naman14.timber.utils.TimberUtils;
 import java.util.List;
 
 public class AlbumSongsAdapter extends BaseSongAdapter<AlbumSongsAdapter.ItemHolder> {
-
     private List<Song> arraylist;
     private Activity mContext;
     private long albumID;
@@ -51,17 +50,12 @@ public class AlbumSongsAdapter extends BaseSongAdapter<AlbumSongsAdapter.ItemHol
 
     @Override
     public ItemHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_album_song, null);
-        ItemHolder ml = new ItemHolder(v);
-        return ml;
-
-
+        return new ItemHolder(v);
     }
 
     @Override
     public void onBindViewHolder(ItemHolder itemHolder, int i) {
-
         Song localItem = arraylist.get(i);
 
         itemHolder.title.setText(localItem.title);
@@ -72,16 +66,12 @@ public class AlbumSongsAdapter extends BaseSongAdapter<AlbumSongsAdapter.ItemHol
         } else itemHolder.trackNumber.setText(String.valueOf(tracknumber));
 
         setOnPopupMenuListener(itemHolder, i);
-
-
     }
 
     private void setOnPopupMenuListener(ItemHolder itemHolder, final int position) {
-
         itemHolder.menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 final PopupMenu menu = new PopupMenu(mContext, v);
                 menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
@@ -157,10 +147,10 @@ public class AlbumSongsAdapter extends BaseSongAdapter<AlbumSongsAdapter.ItemHol
 
         public ItemHolder(View view) {
             super(view);
-            this.title = (TextView) view.findViewById(R.id.song_title);
-            this.duration = (TextView) view.findViewById(R.id.song_duration);
-            this.trackNumber = (TextView) view.findViewById(R.id.trackNumber);
-            this.menu = (ImageView) view.findViewById(R.id.popup_menu);
+            this.title = view.findViewById(R.id.song_title);
+            this.duration = view.findViewById(R.id.song_duration);
+            this.trackNumber = view.findViewById(R.id.trackNumber);
+            this.menu = view.findViewById(R.id.popup_menu);
             view.setOnClickListener(this);
         }
 
@@ -175,11 +165,8 @@ public class AlbumSongsAdapter extends BaseSongAdapter<AlbumSongsAdapter.ItemHol
                             arraylist.get(getAdapterPosition()), true);
                 }
             }, 100);
-
         }
-
     }
-
 }
 
 

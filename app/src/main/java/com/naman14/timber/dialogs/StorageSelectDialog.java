@@ -13,9 +13,7 @@ import java.io.FileFilter;
 /**
  * Created by nv95 on 06.12.16.
  */
-
 public class StorageSelectDialog implements DialogInterface.OnClickListener {
-
     private final AlertDialog mDialog;
     private final File[] mStorages;
     private OnDirSelectListener mDirSelectListener;
@@ -54,7 +52,6 @@ public class StorageSelectDialog implements DialogInterface.OnClickListener {
         File dir = mStorages[position];
         mDirSelectListener.onDirSelected(dir);
     }
-
 
     private static File[] getAvailableStorages(Context context) {
         File storageRoot = new File("/storage");

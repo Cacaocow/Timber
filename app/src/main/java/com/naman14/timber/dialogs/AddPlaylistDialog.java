@@ -18,7 +18,6 @@ import java.util.List;
  * Created by naman on 20/12/15.
  */
 public class AddPlaylistDialog extends DialogFragment {
-
     public static AddPlaylistDialog newInstance(Song song) {
         long[] songs = new long[1];
         songs[0] = song.id;

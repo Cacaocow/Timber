@@ -237,7 +237,7 @@ public class SongPlayCount {
                     for (int i = 0; i < NUM_WEEKS - weekDiff; i++) {
                         playCounts[i + weekDiff] = cursor.getInt(getColumnIndexForWeek(i));
                     }
-                } else if (weekDiff < 0) {
+                } else {
                     // time is shifted backwards (by user) - nor typical behavior but we
                     // will still handle it
 
@@ -335,7 +335,7 @@ public class SongPlayCount {
             return null;
         }
 
-        HashSet<Long> uniqueIds = new HashSet<Long>(ids.length);
+        HashSet<Long> uniqueIds = new HashSet<>(ids.length);
 
         // create the list of ids to select against
         StringBuilder selection = new StringBuilder();
@@ -389,14 +389,12 @@ public class SongPlayCount {
         } finally {
             if (topSongsCursor != null) {
                 topSongsCursor.close();
-                topSongsCursor = null;
             }
         }
 
         // append the remaining items - these are songs that haven't been played recently
-        Iterator<Long> iter = uniqueIds.iterator();
-        while (iter.hasNext()) {
-            sortedList[idx++] = iter.next();
+        for (Long l : uniqueIds) {
+            sortedList[idx++] = l;
         }
 
         return sortedList;
@@ -432,7 +430,6 @@ public class SongPlayCount {
             } while (cursor.moveToNext());
 
             cursor.close();
-            cursor = null;
         }
 
         mDatabaseUpdated = true;
@@ -459,19 +456,14 @@ public class SongPlayCount {
     }
 
     public interface SongPlayCountColumns {
-
         /* Table name */
         String NAME = "songplaycount";
-
         /* Song IDs column */
         String ID = "songid";
-
         /* Week Play Count */
         String WEEK_PLAY_COUNT = "week";
-
         /* Weeks since Epoch */
         String LAST_UPDATED_WEEK_INDEX = "weekindex";
-
         /* Play count */
         String PLAYCOUNTSCORE = "playcountscore";
     }

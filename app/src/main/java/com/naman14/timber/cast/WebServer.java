@@ -15,7 +15,6 @@ import java.util.Map;
 import fi.iki.elonen.NanoHTTPD;
 
 public class WebServer extends NanoHTTPD {
-
     private Context context;
     private Uri songUri, albumArtUri;
 
@@ -48,9 +47,7 @@ public class WebServer extends NanoHTTPD {
                 //serve the song
                 return newChunkedResponse(st, mediasend, fisAlbumArt);
             }
-
         } else if (uri.contains("song")) {
-
             String songId = parameters.get("id");
             this.songUri = TimberUtils.getSongUri(context, Long.parseLong(songId));
 
@@ -68,9 +65,7 @@ public class WebServer extends NanoHTTPD {
                 //serve the song
                 return newFixedLengthResponse(st, mediasend, fisSong, song.length());
             }
-
         }
         return newFixedLengthResponse("Error");
     }
-
 }

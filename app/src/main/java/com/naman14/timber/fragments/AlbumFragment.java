@@ -40,7 +40,6 @@ import com.naman14.timber.widgets.FastScroller;
 import java.util.List;
 
 public class AlbumFragment extends Fragment {
-
     private AlbumAdapter mAdapter;
     private BaseRecyclerView recyclerView;
     private FastScroller fastScroller;
@@ -130,7 +129,6 @@ public class AlbumFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.album_sort_by, menu);
         inflater.inflate(R.menu.menu_show_as, menu);
-
     }
 
     @Override
@@ -180,13 +178,10 @@ public class AlbumFragment extends Fragment {
         @Override
         public void getItemOffsets(Rect outRect, View view,
                                    RecyclerView parent, RecyclerView.State state) {
-
-
             outRect.left = space;
             outRect.top = space;
             outRect.right = space;
             outRect.bottom = space;
-
         }
     }
 
@@ -214,4 +209,3 @@ public class AlbumFragment extends Fragment {
         }
     }
 }
-

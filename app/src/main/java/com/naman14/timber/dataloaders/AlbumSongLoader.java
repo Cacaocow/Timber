@@ -26,13 +26,11 @@ import com.naman14.timber.utils.PreferencesUtility;
 import java.util.ArrayList;
 
 public class AlbumSongLoader {
-
     private static final long[] sEmptyList = new long[0];
 
     public static ArrayList<Song> getSongsForAlbum(Context context, long albumID) {
-
         Cursor cursor = makeAlbumSongCursor(context, albumID);
-        ArrayList arrayList = new ArrayList();
+        ArrayList<Song> arrayList = new ArrayList<>();
         if ((cursor != null) && (cursor.moveToFirst()))
             do {
                 long id = cursor.getLong(0);

@@ -26,7 +26,6 @@ import com.naman14.timber.provider.SongPlayCount;
 import java.util.ArrayList;
 
 public class TopTracksLoader extends SongLoader {
-
     public static final int NUMBER_OF_SONGS = 99;
     protected static QueryType mQueryType;
     private static Context mContext;
@@ -60,8 +59,7 @@ public class TopTracksLoader extends SongLoader {
         return retCursor;
     }
 
-    public static final SortedCursor makeTopTracksCursor(final Context context) {
-
+    public static SortedCursor makeTopTracksCursor(final Context context) {
         Cursor songs = SongPlayCount.getInstance(context).getTopPlayedResults(NUMBER_OF_SONGS);
 
         try {
@@ -70,13 +68,11 @@ public class TopTracksLoader extends SongLoader {
         } finally {
             if (songs != null) {
                 songs.close();
-                songs = null;
             }
         }
     }
 
-    public static final SortedCursor makeRecentTracksCursor(final Context context) {
-
+    public static SortedCursor makeRecentTracksCursor(final Context context) {
         Cursor songs = RecentStore.getInstance(context).queryRecentIds(null);
 
         try {
@@ -85,12 +81,11 @@ public class TopTracksLoader extends SongLoader {
         } finally {
             if (songs != null) {
                 songs.close();
-                songs = null;
             }
         }
     }
 
-    public static final SortedCursor makeSortedCursor(final Context context, final Cursor cursor,
+    public static SortedCursor makeSortedCursor(final Context context, final Cursor cursor,
                                                       final int idColumn) {
         if (cursor != null && cursor.moveToFirst()) {
 
@@ -119,10 +114,8 @@ public class TopTracksLoader extends SongLoader {
                 return new SortedCursor(songCursor, order, BaseColumns._ID, null);
             }
         }
-
         return null;
     }
-
 
     public enum QueryType {
         TopTracks,

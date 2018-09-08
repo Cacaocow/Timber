@@ -37,7 +37,6 @@ import com.naman14.timber.utils.ImageUtils;
 import net.steamcrafted.materialiconlib.MaterialDrawableBuilder;
 
 public class Timber4 extends BaseNowplayingFragment {
-
     ImageView mBlurredArt;
     RecyclerView horizontalRecyclerview;
     SlidingQueueAdapter horizontalAdapter;
@@ -92,15 +91,19 @@ public class Timber4 extends BaseNowplayingFragment {
                 builder.setColor(Color.WHITE);
             } else builder.setColor(accentColor);
 
-            if (MusicPlayer.getRepeatMode() == MusicService.REPEAT_NONE) {
-                builder.setIcon(MaterialDrawableBuilder.IconValue.REPEAT);
-                builder.setColor(Color.WHITE);
-            } else if (MusicPlayer.getRepeatMode() == MusicService.REPEAT_CURRENT) {
-                builder.setIcon(MaterialDrawableBuilder.IconValue.REPEAT_ONCE);
-                builder.setColor(accentColor);
-            } else if (MusicPlayer.getRepeatMode() == MusicService.REPEAT_ALL) {
-                builder.setColor(accentColor);
-                builder.setIcon(MaterialDrawableBuilder.IconValue.REPEAT);
+            switch (MusicPlayer.getRepeatMode()) {
+                case MusicService.REPEAT_NONE:
+                    builder.setIcon(MaterialDrawableBuilder.IconValue.REPEAT);
+                    builder.setColor(Color.WHITE);
+                    break;
+                case MusicService.REPEAT_CURRENT:
+                    builder.setIcon(MaterialDrawableBuilder.IconValue.REPEAT_ONCE);
+                    builder.setColor(accentColor);
+                    break;
+                case MusicService.REPEAT_ALL:
+                    builder.setColor(accentColor);
+                    builder.setIcon(MaterialDrawableBuilder.IconValue.REPEAT);
+                    break;
             }
             repeat.setImageDrawable(builder.build());
             repeat.setOnClickListener(new View.OnClickListener() {
@@ -128,7 +131,6 @@ public class Timber4 extends BaseNowplayingFragment {
     }
 
     private class setBlurredAlbumArt extends AsyncTask<Bitmap, Void, Drawable> {
-
         @Override
         protected Drawable doInBackground(Bitmap... loadedImage) {
             Drawable drawable = null;
@@ -162,6 +164,4 @@ public class Timber4 extends BaseNowplayingFragment {
         protected void onPreExecute() {
         }
     }
-
-
 }

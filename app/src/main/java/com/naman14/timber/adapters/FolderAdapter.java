@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.naman14.timber.MusicPlayer;
 import com.naman14.timber.R;
 import com.naman14.timber.dataloaders.FolderLoader;
 import com.naman14.timber.dataloaders.SongLoader;
@@ -37,7 +36,6 @@ import java.util.List;
  */
 
 public class FolderAdapter extends BaseSongAdapter<FolderAdapter.ItemHolder> implements BubbleTextGetter {
-
     @NonNull
     private List<File> mFileSet;
     private List<Song> mSongs;
@@ -45,7 +43,6 @@ public class FolderAdapter extends BaseSongAdapter<FolderAdapter.ItemHolder> imp
     private Activity mContext;
     private final Drawable[] mIcons;
     private boolean mBusy = false;
-
 
     public FolderAdapter(Activity context, File root) {
         mContext = context;
@@ -173,9 +170,7 @@ public class FolderAdapter extends BaseSongAdapter<FolderAdapter.ItemHolder> imp
         }
     }
 
-
     private class NavigateTask extends AsyncTask<File, Void, List<File>> {
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -200,14 +195,13 @@ public class FolderAdapter extends BaseSongAdapter<FolderAdapter.ItemHolder> imp
     }
 
     public class ItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
         protected TextView title;
         protected ImageView albumArt;
 
         public ItemHolder(View view) {
             super(view);
-            this.title = (TextView) view.findViewById(R.id.folder_title);
-            this.albumArt = (ImageView) view.findViewById(R.id.album_art);
+            this.title = view.findViewById(R.id.folder_title);
+            this.albumArt = view.findViewById(R.id.album_art);
             view.setOnClickListener(this);
         }
 
@@ -249,12 +243,7 @@ public class FolderAdapter extends BaseSongAdapter<FolderAdapter.ItemHolder> imp
                                 false, mSongs.get(getAdapterPosition()), false);
                     }
                 }, 100);
-
-
             }
         }
-
     }
-
-
 }

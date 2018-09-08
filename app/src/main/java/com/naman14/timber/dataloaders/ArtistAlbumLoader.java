@@ -23,30 +23,24 @@ import com.naman14.timber.models.Album;
 import java.util.ArrayList;
 
 public class ArtistAlbumLoader {
-
     public static ArrayList<Album> getAlbumsForArtist(Context context, long artistID) {
-
-        ArrayList albumList = new ArrayList();
+        ArrayList<Album> albumList = new ArrayList<>();
         Cursor cursor = makeAlbumForArtistCursor(context, artistID);
 
         if (cursor != null) {
             if (cursor.moveToFirst())
                 do {
-
                     Album album = new Album(cursor.getLong(0), cursor.getString(1), cursor.getString(2), artistID, cursor.getInt(3), cursor.getInt(4));
                     albumList.add(album);
                 }
                 while (cursor.moveToNext());
-
         }
         if (cursor != null)
             cursor.close();
         return albumList;
     }
 
-
     public static Cursor makeAlbumForArtistCursor(Context context, long artistID) {
-
         if (artistID == -1)
             return null;
 
@@ -57,5 +51,4 @@ public class ArtistAlbumLoader {
                              null,
                              MediaStore.Audio.Albums.FIRST_YEAR);
     }
-
 }

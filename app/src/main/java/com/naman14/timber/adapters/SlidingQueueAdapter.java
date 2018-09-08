@@ -34,7 +34,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.util.List;
 
 public class SlidingQueueAdapter extends RecyclerView.Adapter<SlidingQueueAdapter.ItemHolder> {
-
     public static int currentlyPlayingPosition;
     private List<Song> arraylist;
     private Activity mContext;
@@ -55,14 +54,12 @@ public class SlidingQueueAdapter extends RecyclerView.Adapter<SlidingQueueAdapte
 
     @Override
     public void onBindViewHolder(ItemHolder itemHolder, int i) {
-
 //        setAnimation(itemHolder.itemView, i);
         Song localItem = arraylist.get(i);
 
         ImageLoader.getInstance().displayImage(TimberUtils.getAlbumArtUri(localItem.albumId).toString(),
                 itemHolder.albumArt, new DisplayImageOptions.Builder().cacheInMemory(true)
                         .showImageOnLoading(R.drawable.ic_empty_music2).resetViewBeforeLoading(true).build());
-
     }
 
     @Override
@@ -120,14 +117,6 @@ public class SlidingQueueAdapter extends RecyclerView.Adapter<SlidingQueueAdapte
                     }, 50);
                 }
             }, 100);
-
         }
-
     }
-
-
 }
-
-
-
-

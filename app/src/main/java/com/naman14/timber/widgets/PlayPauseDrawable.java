@@ -44,10 +44,7 @@ import android.util.Log;
 import android.util.Property;
 import android.view.animation.DecelerateInterpolator;
 
-
 public class PlayPauseDrawable extends Drawable {
-
-
     private static final String TAG = PlayPauseDrawable.class.getSimpleName();
     private final Path leftPauseBar = new Path();
     private final Path rightPauseBar = new Path();

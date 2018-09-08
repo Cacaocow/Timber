@@ -13,9 +13,7 @@ import android.graphics.drawable.shapes.OvalShape;
 import android.graphics.drawable.shapes.RectShape;
 import android.graphics.drawable.shapes.RoundRectShape;
 
-
 public class TextDrawable extends ShapeDrawable {
-
     private static final float SHADE_FACTOR = 0.9f;
     private final Paint textPaint;
     private final Paint borderPaint;
@@ -62,7 +60,6 @@ public class TextDrawable extends ShapeDrawable {
         // drawable paint color
         Paint paint = getPaint();
         paint.setColor(color);
-
     }
 
     public static IShapeBuilder builder() {
@@ -80,7 +77,6 @@ public class TextDrawable extends ShapeDrawable {
         super.draw(canvas);
         Rect r = getBounds();
 
-
         // draw border
         if (borderThickness > 0) {
             drawBorder(canvas);
@@ -97,7 +93,6 @@ public class TextDrawable extends ShapeDrawable {
         canvas.drawText(text, width / 2, height / 2 - ((textPaint.descent() + textPaint.ascent()) / 2), textPaint);
 
         canvas.restoreToCount(count);
-
     }
 
     private void drawBorder(Canvas canvas) {
@@ -181,7 +176,6 @@ public class TextDrawable extends ShapeDrawable {
     }
 
     public static class Builder implements IConfigBuilder, IShapeBuilder, IBuilder {
-
         public int textColor;
         public float radius;
         private String text;

@@ -10,7 +10,6 @@ import java.util.Arrays;
 /**
  * Created by Christoph Walcher on 03.12.16.
  */
-
 public class LyricsExtractor {
     public static String getLyrics(File file){
         String filename = file.getName();
@@ -27,7 +26,7 @@ public class LyricsExtractor {
                 case "oga":
                     return getLyricsVorbis(file);
             }
-        }catch(Exception e){}
+        } catch (Exception ignore){}
         return null;
     }
 
@@ -103,9 +102,7 @@ public class LyricsExtractor {
         }
         in.close();
         return null;
-
     }
-
 
     private static String getLyricsMP4(File file) throws Exception{
         FileInputStream in = new FileInputStream(file);
@@ -153,7 +150,6 @@ public class LyricsExtractor {
         return new String(buffer);
     }
 
-
     private static String getLyricsID3(File file) throws Exception{
         FileInputStream in = new FileInputStream(file);
         byte buffer[] = new byte[4];
@@ -171,7 +167,6 @@ public class LyricsExtractor {
             in.read(buffer); len-=4;
             int ext_len = byteArrayToInt(buffer);
             in.skip(ext_len); len -= ext_len;
-
         }
         while (len > 0) {
             byte tag_name[] = new byte[4];
@@ -205,15 +200,12 @@ public class LyricsExtractor {
                         return null;
                 }
                 return new String(tag_value,charset);
-
             }else{
                 in.skip(tag_len); len -= tag_len;
             }
-
         }
         in.close();
         return null;
-
     }
 
     private static int byteArrayToInt(byte[] b) {
@@ -223,5 +215,4 @@ public class LyricsExtractor {
     private static int byteArrayToIntLE(byte[] b) {
         return b[0] & 0xFF | (b[1] & 0xFF) << 8 | (b[2] & 0xFF) << 16 | (b[3] & 0xFF) << 24;
     }
-
 }

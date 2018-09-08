@@ -14,9 +14,7 @@ import com.naman14.timber.MusicService;
 /**
  * Created by nv95 on 02.11.16.
  */
-
 public abstract class BaseWidget extends AppWidgetProvider {
-
     protected static final int REQUEST_NEXT = 1;
     protected static final int REQUEST_PREV = 2;
     protected static final int REQUEST_PLAYPAUSE = 3;
@@ -51,6 +49,5 @@ public abstract class BaseWidget extends AppWidgetProvider {
     }
 
     abstract void onViewsUpdate(Context context, RemoteViews remoteViews, ComponentName serviceName, Bundle extras);
-
     abstract @LayoutRes int getLayoutRes();
 }

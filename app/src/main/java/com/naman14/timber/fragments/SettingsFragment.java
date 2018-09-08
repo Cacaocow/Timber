@@ -39,7 +39,6 @@ import com.naman14.timber.utils.NavigationUtils;
 import com.naman14.timber.utils.PreferencesUtility;
 
 public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
-
     private static final String NOW_PLAYING_SELECTOR = "now_playing_selector";
     private static final String LASTFM_LOGIN = "lastfm_login";
 
@@ -82,7 +81,6 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         nowPlayingSelector.setIntent(NavigationUtils.getNavigateToStyleSelectorIntent(getActivity(), Constants.SETTINGS_STYLE_SELECTOR_NOWPLAYING));
 
         setPreferenceClickListeners();
-
     }
 
     @Override
@@ -91,7 +89,6 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     }
 
     private void setPreferenceClickListeners() {
-
 //        themePreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
 //            @Override
 //            public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -172,7 +169,6 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
                 return true;
             }
         });
-
     }
 
     @Override
@@ -250,7 +246,6 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         });
 
     }
-
 
     public void updateLastFM() {
         String username = LastFmClient.getInstance(getActivity()).getUsername();

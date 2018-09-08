@@ -15,6 +15,7 @@
 package com.naman14.timber.fragments;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.LayoutInflater;
@@ -33,7 +34,6 @@ import com.naman14.timber.utils.Constants;
 import com.naman14.timber.widgets.MultiViewPager;
 
 public class ArtistBioFragment extends Fragment {
-
     long artistID = -1;
 
     public static ArtistBioFragment newInstance(long id) {
@@ -53,7 +53,7 @@ public class ArtistBioFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(
                 R.layout.fragment_artist_bio, container, false);
 
@@ -70,7 +70,7 @@ public class ArtistBioFragment extends Fragment {
             }
         });
 
-        final MultiViewPager pager = (MultiViewPager) rootView.findViewById(R.id.tagspager);
+        final MultiViewPager pager = rootView.findViewById(R.id.tagspager);
 
         final FragmentStatePagerAdapter adapter = new FragmentStatePagerAdapter(getActivity().getSupportFragmentManager()) {
 
@@ -88,7 +88,5 @@ public class ArtistBioFragment extends Fragment {
         pager.setAdapter(adapter);
 
         return rootView;
-
     }
-
 }

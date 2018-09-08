@@ -45,7 +45,6 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class LastFmClient {
-
     //TODO update the api keys
     public static final String API_KEY = "62ac1851456e4558bef1c41747b1aec2";
     public static final String API_SECRET = "b4ae8965723d67fb18e35d207014d6f3";
@@ -97,8 +96,6 @@ public class LastFmClient {
         } catch (UnsupportedEncodingException | NoSuchAlgorithmException ignored) {
             return null;
         }
-
-
     }
 
     public void getAlbumInfo(AlbumQuery albumQuery, final AlbumInfoListener listener) {
@@ -153,8 +150,9 @@ public class LastFmClient {
     }
 
     public void Scrobble(final ScrobbleQuery scrobbleQuery) {
-        if (mUserSession.isLogedin())
+        if (mUserSession.isLogedin()) {
             new ScrobbleUploader(scrobbleQuery);
+        }
     }
 
     private class ScrobbleUploader {
@@ -215,12 +213,13 @@ public class LastFmClient {
                 fields.put("track[" + i + ']', newquery.mTrack);
                 fields.put("timestamp[" + i + ']', Long.toString(newquery.mTimestamp));
             }
-            String sig = "";
+            StringBuilder sig = new StringBuilder();
             for (Map.Entry<String, String> ent : fields.entrySet()) {
-                sig += ent.getKey() + ent.getValue();
+                sig.append(ent.getKey());
+                sig.append(ent.getValue());
             }
-            sig += API_SECRET;
-            mUserRestService.getScrobbleInfo(generateMD5(sig), JSON, fields, new Callback<ScrobbleInfo>() {
+            sig.append(API_SECRET);
+            mUserRestService.getScrobbleInfo(generateMD5(sig.toString()), JSON, fields, new Callback<ScrobbleInfo>() {
                 @Override
                 public void success(ScrobbleInfo scrobbleInfo, Response response) {
                     synchronized (sLock) {
@@ -252,17 +251,16 @@ public class LastFmClient {
                     }
                 }
             });
-
-
         }
 
         void save() {
-            if (!cachedirty) return;
+            if (!cachedirty) {
+                return;
+            }
             SharedPreferences.Editor editor = preferences.edit();
             editor.putStringSet(PREFERENCE_CACHE_NAME, queries);
             editor.apply();
         }
-
     }
 
     public void logout() {
