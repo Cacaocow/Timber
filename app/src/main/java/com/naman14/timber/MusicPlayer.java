@@ -39,6 +39,7 @@ import com.naman14.timber.helpers.MusicPlaybackTrack;
 import com.naman14.timber.utils.TimberUtils.IdType;
 
 import java.util.Arrays;
+import java.util.Random;
 import java.util.WeakHashMap;
 
 import static android.support.v4.content.PermissionChecker.checkSelfPermission;
@@ -514,13 +515,14 @@ public class MusicPlayer {
         if (trackList.length == 0 || mService == null) {
             return;
         }
+        shuffleArray(trackList);
         try {
-            mService.setShuffleMode(MusicService.SHUFFLE_NORMAL);
+            mService.setShuffleMode(MusicService.SHUFFLE_NONE);
             if (getQueuePosition() == 0 && mService.getAudioId() == trackList[0] && Arrays.equals(trackList, getQueue())) {
                     mService.play();
                     return;
             }
-            mService.open(trackList, -1, -1, IdType.NA.mId);
+            mService.open(trackList, 0, -1, IdType.NA.mId);
             mService.play();
             cursor.close();
         } catch (final RemoteException ignored) {
@@ -788,6 +790,20 @@ public class MusicPlayer {
                 mCallback.onServiceDisconnected(className);
             }
             mService = null;
+        }
+    }
+
+    static void shuffleArray(long[] ar)
+    {
+        // If running on Java 6 or older, use `new Random()` on RHS here
+        Random rnd = new Random();
+        for (int i = ar.length - 1; i > 0; i--)
+        {
+            int index = rnd.nextInt(i + 1);
+            // Simple swap
+            long a = ar[index];
+            ar[index] = ar[i];
+            ar[i] = a;
         }
     }
 
